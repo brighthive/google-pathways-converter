@@ -1,5 +1,6 @@
 import stringcase
 
+
 def add_header(json_ld: dict) -> dict:
     output = {
         "@context": "http://schema.org/",
@@ -7,31 +8,6 @@ def add_header(json_ld: dict) -> dict:
     }
 
     return output
-
-
-def _add_basic(json_ld: dict, key: str, value: str) -> dict:
-    json_ld[key] = value
-    return json_ld
-
-
-def add_description(json_ld: dict, value: str) -> dict:
-    return _add_basic(json_ld, "description", value)
-
-
-def add_name(json_ld: dict, value: str) -> dict:
-    return _add_basic(json_ld, "name", value)
-
-
-def add_url(json_ld: dict, value: str) -> dict:
-    return _add_basic(json_ld, "url", value)
-
-
-def add_end_date(json_ld: dict, value: str) -> dict:
-    return _add_basic(json_ld, "endDate", value)
-
-
-def add_start_date(json_ld: dict, value: str) -> dict:
-    return _add_basic(json_ld, "startDate", value)
 
 
 def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
