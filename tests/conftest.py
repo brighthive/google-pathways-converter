@@ -1,7 +1,15 @@
-import pytest   
+import pytest
+from pprint import pprint
+from deepdiff import DeepDiff
 
-@pytest.fixture  
-def program_provider_address(): 
+
+def pprint_diff(expected_output, output):
+    ddiff = DeepDiff(expected_output, output, ignore_order=True)
+    pprint(ddiff, indent=4)
+
+
+@pytest.fixture
+def program_provider_address():
     program_provider_address_data = [
         {
             "street_address": "1940 East Silverlake Rd",

@@ -1,6 +1,10 @@
-from converter.helper import add_provider_data, add_prerequisites_data
+from converter.helper import (
+    add_provider_data,
+    add_prerequisites_data,
+    add_offers_data)
 import json
 from expects import expect, equal
+from tests.conftest import pprint_diff
 
 
 def test_add_provider_data(program_provider_address):
@@ -31,8 +35,7 @@ def test_add_provider_data(program_provider_address):
 
     json_output = json.dumps(output, sort_keys=True)
 
-    print(json.dumps(expected_output, sort_keys=True, indent=4))
-    print(json.dumps(output, sort_keys=True, indent=4))
+    pprint_diff(expected_output, output)
 
     expect(json_output).to(equal(json_expected_output))
 
@@ -48,7 +51,31 @@ def test_add_prerequisites_data(program_provider_address):
 
     json_output = json.dumps(output, sort_keys=True)
 
-    print(json.dumps(expected_output, sort_keys=True, indent=4))
-    print(json.dumps(output, sort_keys=True, indent=4))
+    pprint_diff(expected_output, output)
+
+    expect(json_output).to(equal(json_expected_output))
+
+
+def test_add_offers_data(program_provider_address):
+    expected_output = {
+        "offers": {
+            "@type": "Offer",
+            "category": "Total Cost",
+            "priceSpecification": {
+                "@type": "PriceSpecification",
+                "price": 123,
+                "priceCurrency": "USD"
+            }
+        }
+    }
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+
+    offers_price = 123
+    output = add_offers_data({}, offers_price)
+
+    json_output = json.dumps(output, sort_keys=True)
+
+    pprint_diff(expected_output, output)
 
     expect(json_output).to(equal(json_expected_output))

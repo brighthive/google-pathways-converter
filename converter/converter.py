@@ -3,6 +3,7 @@ from converter.helper import (
     add_header,
     add_provider_data,
     add_prerequisites_data,
+    add_offers_data
 )
 
 kwarg_to_schema_key_mapper = {
@@ -38,8 +39,13 @@ def work_based_program_converter(**kwargs):
     except KeyError:
         raise RuntimeError("Required property not included")
 
-    try: 
+    try:
         output = add_prerequisites_data(output, kwargs['program_prerequisites'])
+    except KeyError:
+        pass
+
+    try:
+        output = add_offers_data(output, kwargs['offers_price'])
     except KeyError:
         pass
 

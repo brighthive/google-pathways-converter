@@ -74,4 +74,18 @@ def _add_prerequisite_data(json_ld: dict, prereq_key: str, prereq_value: str) ->
     json_ld['programPrerequisites'].append(prereq_node)
 
     return json_ld
-    
+
+
+def add_offers_data(output, price: int):
+    offers_node = {
+        "@type": "Offer",
+        "category": "Total Cost",
+        "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": price,
+            "priceCurrency": "USD"
+        }
+    }
+
+    output['offers'] = offers_node
+    return output

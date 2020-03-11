@@ -1,13 +1,13 @@
 from expects import expect, equal
 from converter import work_based_program_converter
 import json
-from deepdiff import DeepDiff
-from pprint import pprint 
+from tests.conftest import pprint_diff
 
+# offers
+# offers.category
+# salaryUponCompletion
+# trainingSalary
 
-def pprint_diff(expected_output, output):
-    ddiff = DeepDiff(expected_output,  output, ignore_order=True)
-    pprint(ddiff, indent=4)
 
 def test_work_based_program_converter_all(program_provider_address):
     kwargs = {
@@ -29,9 +29,9 @@ def test_work_based_program_converter_all(program_provider_address):
         "maximumEnrollment": "maximumEnrollment",
         "occupationalCredentialAwarded": "occupationalCredentialAwarded",
         "timeOfDay": "timeOfDay",
-        "timeToComplete": "timeToComplete"
+        "timeToComplete": "timeToComplete",
+        "offers_price": 123
     }
-
 
     # Schema org 
     expected_output = {
@@ -81,7 +81,16 @@ def test_work_based_program_converter_all(program_provider_address):
         "maximumEnrollment": "maximumEnrollment",
         "occupationalCredentialAwarded": "occupationalCredentialAwarded",
         "timeOfDay": "timeOfDay",
-        "timeToComplete": "timeToComplete"
+        "timeToComplete": "timeToComplete",
+        "offers": {
+            "@type": "Offer",
+            "category": "Total Cost",
+            "priceSpecification": {
+                "@type": "PriceSpecification",
+                "price": 123,
+                "priceCurrency": "USD"
+            }
+        }
     }
 
     json_expected_output = json.dumps(expected_output, sort_keys=True)
@@ -95,7 +104,6 @@ def test_work_based_program_converter_all(program_provider_address):
     expect(json_output).to(equal(json_expected_output))
 
 
-
 def test_work_based_program_converter_required(program_provider_address):
     kwargs = {
         "program_description": "desc",
@@ -106,7 +114,6 @@ def test_work_based_program_converter_required(program_provider_address):
         "provider_telephone": "telephone",
         "provider_address": program_provider_address
     }
-
 
     # Schema org 
     expected_output = {
