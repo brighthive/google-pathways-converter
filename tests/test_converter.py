@@ -25,7 +25,11 @@ def test_work_based_program_converter_all(program_provider_address):
             "other_program_prerequisites": "other"
         },
         "end_date": "2020",
-        "start_date": "2019"
+        "start_date": "2019",
+        "maximumEnrollment": "maximumEnrollment",
+        "occupationalCredentialAwarded": "occupationalCredentialAwarded",
+        "timeOfDay": "timeOfDay",
+        "timeToComplete": "timeToComplete"
     }
 
 
@@ -73,7 +77,11 @@ def test_work_based_program_converter_all(program_provider_address):
             }
         ],
         "endDate": "2020",
-        "startDate": "2019"
+        "startDate": "2019",
+        "maximumEnrollment": "maximumEnrollment",
+        "occupationalCredentialAwarded": "occupationalCredentialAwarded",
+        "timeOfDay": "timeOfDay",
+        "timeToComplete": "timeToComplete"
     }
 
     json_expected_output = json.dumps(expected_output, sort_keys=True)
