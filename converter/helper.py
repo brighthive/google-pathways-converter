@@ -1,3 +1,6 @@
+import stringcase
+
+
 def add_header(json_ld: dict) -> dict:
     output = {
         "@context": "http://schema.org/",
@@ -6,25 +9,6 @@ def add_header(json_ld: dict) -> dict:
 
     return output
 
-
-def _add_basic(json_ld: dict, key: str, value: str) -> dict:
-    json_ld[key] = value
-    return json_ld
-
-
-def add_description(json_ld: dict, value: str) -> dict:
-    return _add_basic(json_ld, "description", value)
-
-
-def add_name(json_ld: dict, value: str) -> dict:
-    return _add_basic(json_ld, "name", value)
-
-
-def add_url(json_ld: dict, value: str) -> dict:
-    return _add_basic(json_ld, "url", value)
-
-
-## ....
 
 def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
     json_ld['provider'] = {
@@ -64,3 +48,70 @@ def _add_address_data(json_ld: dict, address: dict) -> dict:
     json_ld['provider']['address'].append(address_node)
 
     return json_ld
+
+
+def add_prerequisites_data(json_ld: dict, prerequisites: list) -> dict:
+    json_ld['programPrerequisites'] = []
+
+    for prereq_key, prereq_value in prerequisites.items():
+        json_ld = _add_prerequisite_data(json_ld, prereq_key, prereq_value)
+
+    return json_ld
+
+
+def _add_prerequisite_data(json_ld: dict, prereq_key: str, prereq_value: str) -> dict:
+    prereq_type = "Text"
+    if "credential_category" == prereq_key:
+        prereq_type = "EducationalOccupationalCredential"
+
+    camelcase_prereq = stringcase.camelcase(prereq_key)
+
+    prereq_node = {
+        "@type": prereq_type,
+        camelcase_prereq: prereq_value
+    }
+
+    json_ld['programPrerequisites'].append(prereq_node)
+
+    return json_ld
+
+
+def add_offers_data(output, price: int):
+    offers_node = {
+        "@type": "Offer",
+        "category": "Total Cost",
+        "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": price,
+            "priceCurrency": "USD"
+        }
+    }
+
+    output['offers'] = offers_node
+    return output
+
+
+def add_training_salary_data(output, price: str):
+    training_salary_node = {
+        "@type": "MonetaryAmountDistribution",
+        "currency": "USD",
+        "duration": "P1H",
+        "median": "123.00"
+    }
+
+    output['trainingSalary'] = training_salary_node
+
+    return output
+
+
+def add_salary_upon_completion_data(output, price: str):
+    training_salary_node = {
+        "@type": "MonetaryAmountDistribution",
+        "currency": "USD",
+        "duration": "",
+        "median": price
+    }
+
+    output['salaryUponCompletion'] = training_salary_node
+
+    return output

@@ -9,8 +9,10 @@ expects = "*"
 pycodestyle = "*"
 autopep8 = "*"
 flake8 = "*"
+deepdiff = "*"
 
 [packages]
+stringcase = "*"
 
 [requires]
 python_version = "3.7"
