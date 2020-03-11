@@ -2,7 +2,8 @@ from converter.helper import (
     add_provider_data,
     add_prerequisites_data,
     add_offers_data,
-    add_training_salary_data)
+    add_training_salary_data,
+    add_salary_upon_completion_data)
 import json
 from expects import expect, equal
 from tests.conftest import pprint_diff
@@ -83,7 +84,7 @@ def test_add_offers_data():
 
 
 def test_add_training_salary_data(program_provider_address):
-    training_salary = "123.0"
+    training_salary = "123.00"
     expected_output = {
         "trainingSalary": {
             "@type": "MonetaryAmountDistribution",
@@ -94,6 +95,27 @@ def test_add_training_salary_data(program_provider_address):
     }
 
     output = add_training_salary_data({}, training_salary)
+
+    pprint_diff(expected_output, output)
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
+
+    expect(json_output).to(equal(json_expected_output))
+
+
+def test_add_salary_upon_completion_data(program_provider_address):
+    training_salary = "1234.00"
+    expected_output = {
+        "salaryUponCompletion": {
+            "@type": "MonetaryAmountDistribution",
+            "currency": "USD",
+            "duration": "",
+            "median": "1234.00"
+        }
+    }
+
+    output = add_salary_upon_completion_data({}, training_salary)
 
     pprint_diff(expected_output, output)
 

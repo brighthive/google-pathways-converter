@@ -4,7 +4,8 @@ from converter.helper import (
     add_provider_data,
     add_prerequisites_data,
     add_offers_data,
-    add_training_salary_data
+    add_training_salary_data,
+    add_salary_upon_completion_data
 )
 
 kwarg_to_schema_key_mapper = {
@@ -55,6 +56,11 @@ def work_based_program_converter(**kwargs):
     except KeyError:
         pass
 
+    try:
+        output = add_salary_upon_completion_data(output, kwargs['salary_upon_completion'])
+    except KeyError:
+        pass
+
     return output
 
 
@@ -71,7 +77,7 @@ def _check_for_required(kwargs: dict) -> None:
 
 def add_basic_keywords(output, kwargs):
     for key, value in kwargs.items():
-        ## first convert to ours if possible
+        # first convert to ours if possible
         try:
             key = kwarg_to_schema_key_mapper[key]
         except KeyError:

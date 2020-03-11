@@ -3,8 +3,6 @@ from converter import work_based_program_converter
 import json
 from tests.conftest import pprint_diff
 
-# TODO salaryUponCompletion
-
 
 def test_work_based_program_converter_all(program_provider_address):
     kwargs = {
@@ -28,7 +26,8 @@ def test_work_based_program_converter_all(program_provider_address):
         "timeOfDay": "timeOfDay",
         "timeToComplete": "timeToComplete",
         "offers_price": 123,
-        "training_salary": "123.0"
+        "training_salary": "123.00",
+        "salary_upon_completion": "1234.00"
     }
 
     # Schema org
@@ -94,6 +93,12 @@ def test_work_based_program_converter_all(program_provider_address):
             "currency": "USD",
             "duration": "P1H",
             "median": "123.00"
+        },
+        "salaryUponCompletion": {
+            "@type": "MonetaryAmountDistribution",
+            "currency": "USD",
+            "duration": "",
+            "median": "1234.00"
         }
     }
 

@@ -102,3 +102,16 @@ def add_training_salary_data(output, price: str):
     output['trainingSalary'] = training_salary_node
 
     return output
+
+
+def add_salary_upon_completion_data(output, price: str):
+    training_salary_node = {
+        "@type": "MonetaryAmountDistribution",
+        "currency": "USD",
+        "duration": "",
+        "median": price
+    }
+
+    output['salaryUponCompletion'] = training_salary_node
+
+    return output
