@@ -25,8 +25,14 @@ def add_name(json_ld: dict, value: str) -> dict:
 def add_url(json_ld: dict, value: str) -> dict:
     return _add_basic(json_ld, "url", value)
 
+
 def add_end_date(json_ld: dict, value: str) -> dict:
     return _add_basic(json_ld, "endDate", value)
+
+
+def add_start_date(json_ld: dict, value: str) -> dict:
+    return _add_basic(json_ld, "startDate", value)
+
 
 def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
     json_ld['provider'] = {

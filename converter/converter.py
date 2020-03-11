@@ -5,7 +5,8 @@ from converter.helper import (
     add_url,
     add_provider_data,
     add_prerequisites_data,
-    add_end_date
+    add_end_date,
+    add_start_date
 )
 
 
@@ -30,6 +31,11 @@ def work_based_program_converter(**kwargs):
 
     try: 
         output = add_end_date(output, kwargs['end_date'])
+    except KeyError:
+        pass
+
+    try: 
+        output = add_start_date(output, kwargs['start_date'])
     except KeyError:
         pass
 

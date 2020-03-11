@@ -9,6 +9,7 @@ expects = "*"
 pycodestyle = "*"
 autopep8 = "*"
 flake8 = "*"
+deepdiff = "*"
 
 [packages]
 stringcase = "*"
