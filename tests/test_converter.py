@@ -3,7 +3,7 @@ from converter import work_based_program_converter
 import json
 
 
-def test_work_based_program_converter():
+def test_work_based_program_converter(program_provider_address):
     kwargs = {
         "program_description": "desc",
         "program_name": "name",
@@ -11,12 +11,13 @@ def test_work_based_program_converter():
         "provider_name": "provider name",
         "provider_url": "provider url",
         "provider_telephone": "telephone",
-        "provider_address": [{
-            "street_address": "1940 East Silverlake Rd",
-            "address_locality": "Tucson",
-            "address_region": "AZ",
-            "postal_code": "85713"
-        }]
+        "provider_address": program_provider_address,
+        "program_prerequisites": {
+            "credential_category": "HighSchool",
+            "eligible_groups": "Youth",
+            "max_income_eligibility": "20000",
+            "other_program_prerequisites": "other"
+        }
     }
 
 
@@ -46,6 +47,24 @@ def test_work_based_program_converter():
                 "telephone": "telephone"
             }
         },
+        "programPrerequisites": [
+            {
+                "@type": "EducationalOccupationalCredential", 
+                "credentialCategory": "HighSchool"
+            },
+            {
+                "@type": "Text",
+                "eligibleGroups": "Youth"
+            },
+            {
+                "@type": "Text",
+                "maxIncomeEligibility": "20000"
+            },
+            {
+                "@type": "Text",
+                "otherProgramPrerequisites": "other"
+            }
+        ],
     }
 
     json_expected_output = json.dumps(expected_output, sort_keys=True)

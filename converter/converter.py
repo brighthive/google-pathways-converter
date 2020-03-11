@@ -3,7 +3,8 @@ from converter.helper import (
     add_description,
     add_name,
     add_url,
-    add_provider_data
+    add_provider_data,
+    add_prerequisites_data
 )
 
 
@@ -12,12 +13,19 @@ def work_based_program_converter(**kwargs):
 
     output = {}
 
-    output = add_header(output)
-    output = add_description(output, kwargs['program_description'])
-    output = add_name(output, kwargs['program_name'])
-    output = add_url(output, kwargs['program_url'])
+    try:
+        output = add_header(output)
+        output = add_description(output, kwargs['program_description'])
+        output = add_name(output, kwargs['program_name'])
+        output = add_url(output, kwargs['program_url'])
+        output = add_provider_data(output, kwargs)
+    except KeyError:
+        raise RuntimeError("Required property not included")
 
-    output = add_provider_data(output, kwargs)
+    try: 
+        output = add_prerequisites_data(output, kwargs['program_prerequisites'])
+    except KeyError:
+        pass
 
     return output
 

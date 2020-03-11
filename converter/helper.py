@@ -1,3 +1,5 @@
+import stringcase
+
 def add_header(json_ld: dict) -> dict:
     output = {
         "@context": "http://schema.org/",
@@ -64,3 +66,29 @@ def _add_address_data(json_ld: dict, address: dict) -> dict:
     json_ld['provider']['address'].append(address_node)
 
     return json_ld
+
+
+def add_prerequisites_data(json_ld: dict, prerequisites: list) -> dict:
+    json_ld['programPrerequisites'] = []
+
+    for prereq_key, prereq_value in prerequisites.items():
+        json_ld = _add_prerequisite_data(json_ld, prereq_key, prereq_value)
+
+    return json_ld
+
+def _add_prerequisite_data(json_ld: dict, prereq_key: str, prereq_value: str) -> dict:
+    prereq_type = "Text"
+    if "credential_category" == prereq_key:
+        prereq_type = "EducationalOccupationalCredential"
+
+    camelcase_prereq = stringcase.camelcase(prereq_key)
+
+    prereq_node = {
+        "@type": prereq_type,
+        camelcase_prereq: prereq_value
+    }
+
+    json_ld['programPrerequisites'].append(prereq_node)
+
+    return json_ld
+    
