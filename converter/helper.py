@@ -89,3 +89,16 @@ def add_offers_data(output, price: int):
 
     output['offers'] = offers_node
     return output
+
+
+def add_training_salary_data(output, price: str):
+    training_salary_node = {
+        "@type": "MonetaryAmountDistribution",
+        "currency": "USD",
+        "duration": "P1H",
+        "median": "123.00"
+    }
+
+    output['trainingSalary'] = training_salary_node
+
+    return output

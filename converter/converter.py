@@ -3,7 +3,8 @@ from converter.helper import (
     add_header,
     add_provider_data,
     add_prerequisites_data,
-    add_offers_data
+    add_offers_data,
+    add_training_salary_data
 )
 
 kwarg_to_schema_key_mapper = {
@@ -46,6 +47,11 @@ def work_based_program_converter(**kwargs):
 
     try:
         output = add_offers_data(output, kwargs['offers_price'])
+    except KeyError:
+        pass
+
+    try:
+        output = add_training_salary_data(output, kwargs['training_salary'])
     except KeyError:
         pass
 

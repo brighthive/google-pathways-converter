@@ -3,9 +3,7 @@ from converter import work_based_program_converter
 import json
 from tests.conftest import pprint_diff
 
-# offers
-# offers.category
-# salaryUponCompletion
+# TODO salaryUponCompletion
 # trainingSalary
 
 
@@ -30,10 +28,11 @@ def test_work_based_program_converter_all(program_provider_address):
         "occupationalCredentialAwarded": "occupationalCredentialAwarded",
         "timeOfDay": "timeOfDay",
         "timeToComplete": "timeToComplete",
-        "offers_price": 123
+        "offers_price": 123,
+        "training_salary": "123.0"
     }
 
-    # Schema org 
+    # Schema org
     expected_output = {
         "@context": "http://schema.org/",
         "@type": "WorkBasedProgram",
@@ -90,6 +89,12 @@ def test_work_based_program_converter_all(program_provider_address):
                 "price": 123,
                 "priceCurrency": "USD"
             }
+        },
+        "trainingSalary": {
+            "@type": "MonetaryAmountDistribution",
+            "currency": "USD",
+            "duration": "P1H",
+            "median": "123.00"
         }
     }
 
