@@ -25,8 +25,8 @@ def add_name(json_ld: dict, value: str) -> dict:
 def add_url(json_ld: dict, value: str) -> dict:
     return _add_basic(json_ld, "url", value)
 
-
-## ....
+def add_end_date(json_ld: dict, value: str) -> dict:
+    return _add_basic(json_ld, "endDate", value)
 
 def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
     json_ld['provider'] = {
@@ -75,6 +75,7 @@ def add_prerequisites_data(json_ld: dict, prerequisites: list) -> dict:
         json_ld = _add_prerequisite_data(json_ld, prereq_key, prereq_value)
 
     return json_ld
+
 
 def _add_prerequisite_data(json_ld: dict, prereq_key: str, prereq_value: str) -> dict:
     prereq_type = "Text"

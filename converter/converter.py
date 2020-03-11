@@ -4,7 +4,8 @@ from converter.helper import (
     add_name,
     add_url,
     add_provider_data,
-    add_prerequisites_data
+    add_prerequisites_data,
+    add_end_date
 )
 
 
@@ -24,6 +25,11 @@ def work_based_program_converter(**kwargs):
 
     try: 
         output = add_prerequisites_data(output, kwargs['program_prerequisites'])
+    except KeyError:
+        pass
+
+    try: 
+        output = add_end_date(output, kwargs['end_date'])
     except KeyError:
         pass
 

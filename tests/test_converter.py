@@ -17,7 +17,8 @@ def test_work_based_program_converter(program_provider_address):
             "eligible_groups": "Youth",
             "max_income_eligibility": "20000",
             "other_program_prerequisites": "other"
-        }
+        },
+        "end_date": "2020"
     }
 
 
@@ -39,7 +40,6 @@ def test_work_based_program_converter(program_provider_address):
                     "addressRegion": "AZ",
                     "postalCode": "85713"
                 }
-            #     // ProgramAddress: "",
             ],
             "url": "provider url",
             "contactPoint": {
@@ -65,6 +65,7 @@ def test_work_based_program_converter(program_provider_address):
                 "otherProgramPrerequisites": "other"
             }
         ],
+        "endDate": "2020"
     }
 
     json_expected_output = json.dumps(expected_output, sort_keys=True)
