@@ -4,7 +4,6 @@ import json
 from tests.conftest import pprint_diff
 
 # TODO salaryUponCompletion
-# trainingSalary
 
 
 def test_work_based_program_converter_all(program_provider_address):
@@ -98,14 +97,12 @@ def test_work_based_program_converter_all(program_provider_address):
         }
     }
 
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-
     output = work_based_program_converter(**kwargs)
-
-    json_output = json.dumps(output, sort_keys=True)
 
     pprint_diff(expected_output, output)
 
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
     expect(json_output).to(equal(json_expected_output))
 
 
@@ -120,7 +117,7 @@ def test_work_based_program_converter_required(program_provider_address):
         "provider_address": program_provider_address
     }
 
-    # Schema org 
+    # Schema org
     expected_output = {
         "@context": "http://schema.org/",
         "@type": "WorkBasedProgram",
@@ -147,12 +144,10 @@ def test_work_based_program_converter_required(program_provider_address):
         }
     }
 
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-
     output = work_based_program_converter(**kwargs)
-
-    json_output = json.dumps(output, sort_keys=True)
 
     pprint_diff(expected_output, output)
 
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
     expect(json_output).to(equal(json_expected_output))

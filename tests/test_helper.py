@@ -30,13 +30,12 @@ def test_add_provider_data(program_provider_address):
         },
     }
 
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-
     output = add_provider_data({}, kwargs)
 
-    json_output = json.dumps(output, sort_keys=True)
-
     pprint_diff(expected_output, output)
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
 
     expect(json_output).to(equal(json_expected_output))
 
@@ -44,15 +43,16 @@ def test_add_provider_data(program_provider_address):
 def test_add_prerequisites_data():
     kwargs = {}
 
-    expected_output = { "programPrerequisites": [] }
-
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    expected_output = {
+        "programPrerequisites": []
+    }
 
     output = add_prerequisites_data({}, kwargs)
 
-    json_output = json.dumps(output, sort_keys=True)
-
     pprint_diff(expected_output, output)
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
 
     expect(json_output).to(equal(json_expected_output))
 
@@ -72,13 +72,12 @@ def test_add_offers_data():
         }
     }
 
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-
     output = add_offers_data({}, offers_price)
 
-    json_output = json.dumps(output, sort_keys=True)
-
     pprint_diff(expected_output, output)
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
 
     expect(json_output).to(equal(json_expected_output))
 
@@ -94,12 +93,11 @@ def test_add_training_salary_data(program_provider_address):
         },
     }
 
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-
     output = add_training_salary_data({}, training_salary)
 
-    json_output = json.dumps(output, sort_keys=True)
-
     pprint_diff(expected_output, output)
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
 
     expect(json_output).to(equal(json_expected_output))
