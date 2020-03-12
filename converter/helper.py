@@ -1,11 +1,45 @@
 import stringcase
 
 
+kwarg_to_schema_key_mapper = {
+    "program_description": "description",
+    "program_name": "name",
+    "program_url": "url"
+}
+
+basic_keywords = [
+    "description",
+    "name",
+    "url",
+    "endDate", # Dates should use ISO-8601 format – do we need to validate?
+    "startDate",
+    "maximumEnrollment",
+    "occupationalCredentialAwarded",
+    "timeOfDay",
+    "timeToComplete", # Again, should be ISO-8601 format (for durations) – should this library validate for this?
+]
+
 def add_header(json_ld: dict) -> dict:
     output = {
         "@context": "http://schema.org/",
         "@type": "WorkBasedProgram",
     }
+
+    return output
+
+
+def add_basic_keywords(output, kwargs):
+    for key, value in kwargs.items():
+        try:
+            key = kwarg_to_schema_key_mapper[key]
+        except KeyError:
+            pass
+
+        camel_case_key = stringcase.camelcase(key)
+        if camel_case_key not in basic_keywords:
+            continue
+
+        output[camel_case_key] = value
 
     return output
 
@@ -95,8 +129,8 @@ def add_training_salary_data(output, price: str):
     training_salary_node = {
         "@type": "MonetaryAmountDistribution",
         "currency": "USD",
-        "duration": "P1H",
-        "median": "123.00"
+        "duration": "P1H", # Denotes hourly wage
+        "median": price
     }
 
     output['trainingSalary'] = training_salary_node
@@ -108,7 +142,7 @@ def add_salary_upon_completion_data(output, price: str):
     training_salary_node = {
         "@type": "MonetaryAmountDistribution",
         "currency": "USD",
-        "duration": "",
+        "duration": "P1Y", # Denotes annual salary
         "median": price
     }
 
