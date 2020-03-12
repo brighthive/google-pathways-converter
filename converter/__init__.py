@@ -1,1 +1,1 @@
-from converter.converter import work_based_program_converter
+from converter.work_based_programs_converter import work_based_programs_converter

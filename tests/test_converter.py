@@ -1,11 +1,11 @@
 import json
 
-from converter import work_based_program_converter
+from converter import work_based_programs_converter
 from expects import equal, expect
 from tests.conftest import pprint_diff
 
 
-def test_work_based_program_converter_all(input_kwargs, offers, training_salary, salary_upon_completion, required_fields_as_jsonld):
+def test_work_based_programs_converter_all(input_kwargs, offers, training_salary, salary_upon_completion, required_fields_as_jsonld):
     recommended_fields = {
         "programPrerequisites": [
             {
@@ -38,7 +38,7 @@ def test_work_based_program_converter_all(input_kwargs, offers, training_salary,
 
     required_fields_as_jsonld.update(recommended_fields)
 
-    output = work_based_program_converter(**input_kwargs)
+    output = work_based_programs_converter(**input_kwargs)
 
     pprint_diff(required_fields_as_jsonld, output)
 
@@ -49,7 +49,7 @@ def test_work_based_program_converter_all(input_kwargs, offers, training_salary,
     expect(json_output).to(equal(json_expected_output))
 
 
-def test_work_based_program_converter_required(input_kwargs, required_fields_as_jsonld):
+def test_work_based_programs_converter_required(input_kwargs, required_fields_as_jsonld):
     kwargs = {
         "program_description": input_kwargs['program_description'],
         "program_name": input_kwargs['program_name'],
@@ -60,7 +60,7 @@ def test_work_based_program_converter_required(input_kwargs, required_fields_as_
         "provider_address": input_kwargs['provider_address']
     }
 
-    output = work_based_program_converter(**kwargs)
+    output = work_based_programs_converter(**kwargs)
 
     pprint_diff(required_fields_as_jsonld, output)
 
