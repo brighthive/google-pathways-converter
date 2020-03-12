@@ -1,8 +1,9 @@
 from converter.helper import (add_header, add_basic_keywords, add_offers_data,
                               add_prerequisites_data, add_provider_data,
                               add_salary_upon_completion_data,
-                              add_training_salary_data)
-
+                              add_training_salary_data,
+                              add_data_keywords)
+import pdb
 
 kwarg_to_schema_key_mapper = {
     "program_description": "description",
@@ -54,7 +55,10 @@ class Converter():
     def trigger_conversion(self, kwargs):
         self._check_for_required(kwargs)
         self._add_basic_keywords(kwargs)
+        # pdb.set_trace()
+        
         self._add_data_keywords(kwargs)
+        # pdb.set_trace()
 
         return self.output
 
@@ -79,17 +83,7 @@ class Converter():
 
     def _add_data_keywords(self, kwargs):
         # special case 'all'
-        for fn in self.data_keywords_mapper['all']:
-            self.output = fn(self.output, kwargs)
-
-        for key, fn in self.data_keywords_mapper.items():
-            if key == "all":
-                continue
-
-            try:
-                self.output = fn(self.output, kwargs)
-            except KeyError:
-                pass
+        self.output = add_data_keywords(self.output, kwargs, self.data_keywords_mapper)
 
 
 def work_based_program_converter(**kwargs):

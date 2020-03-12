@@ -2,12 +2,10 @@ import stringcase
 
 
 def add_header(json_ld: dict, type_str: str) -> dict:
-    output = {
-        "@context": "http://schema.org/",
-        "@type": type_str,
-    }
+    json_ld["@context"] = "http://schema.org/"
+    json_ld["@type"] = type_str
 
-    return output
+    return json_ld
 
 
 def add_basic_keywords(output, kwargs, basic_keywords, kwarg_to_schema_key_mapper):
@@ -22,6 +20,22 @@ def add_basic_keywords(output, kwargs, basic_keywords, kwarg_to_schema_key_mappe
             continue
 
         output[camel_case_key] = value
+
+    return output
+
+
+def add_data_keywords(output, kwargs, data_keywords_mapper):
+    for fn in data_keywords_mapper['all']:
+        output = fn(output, kwargs)
+
+    for key, fn in data_keywords_mapper.items():
+        if key == "all":
+            continue
+
+        try:
+            output = fn(output, kwargs)
+        except KeyError:
+            pass
 
     return output
 
