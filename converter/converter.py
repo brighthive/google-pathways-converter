@@ -60,10 +60,13 @@ class Converter():
 
     def _check_for_required(self, kwargs):
         def assert_item(item):
-            assert(item in self.required_keywords)  # TODO figure something else other than assert
+            try:
+                assert(item in kwargs)
+            except AssertionError:
+                raise RuntimeError("Required property not included")
 
-        for kwarg in kwargs:
-            assert_item(kwarg)
+        for keyword in self.required_keywords: 
+            assert_item(keyword)
 
     def _add_basic_keywords(self, kwargs):
         self.output = add_basic_keywords(
@@ -121,14 +124,3 @@ def work_based_program_converter(**kwargs):
         pass
 
     return output
-
-
-def _check_for_required(kwargs: dict) -> None:
-    def assert_item(item):
-        nonlocal kwargs
-        assert(item in kwargs)
-
-    assert_item("program_description")
-    assert_item("program_name")
-    assert_item("program_url")
-    assert_item("provider_address")
