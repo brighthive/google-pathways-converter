@@ -5,32 +5,7 @@ from expects import equal, expect
 from tests.conftest import pprint_diff
 
 
-def test_work_based_program_converter_all(program_provider_address_data, offers, training_salary, salary_upon_completion, required_fields_as_jsonld):
-    kwargs = {
-        "program_description": "desc",
-        "program_name": "name",
-        "program_url": "url",
-        "provider_name": "provider name",
-        "provider_url": "provider url",
-        "provider_telephone": "telephone",
-        "provider_address": program_provider_address_data,
-        "program_prerequisites": {
-            "credential_category": "HighSchool",
-            "eligible_groups": "Youth",
-            "max_income_eligibility": "20000",
-            "other_program_prerequisites": "other"
-        },
-        "end_date": "2020",
-        "start_date": "2019",
-        "maximumEnrollment": "maximumEnrollment",
-        "occupationalCredentialAwarded": "occupationalCredentialAwarded",
-        "timeOfDay": "timeOfDay",
-        "timeToComplete": "timeToComplete",
-        "offers_price": offers['priceSpecification']['price'],
-        "training_salary": training_salary['median'],
-        "salary_upon_completion": salary_upon_completion['median']
-    }
-
+def test_work_based_program_converter_all(input_kwargs, offers, training_salary, salary_upon_completion, required_fields_as_jsonld):
     recommended_fields = {
         "programPrerequisites": [
             {
@@ -50,12 +25,12 @@ def test_work_based_program_converter_all(program_provider_address_data, offers,
                 "otherProgramPrerequisites": "other"
             }
         ],
-        "endDate": "2020",
-        "startDate": "2019",
-        "maximumEnrollment": "maximumEnrollment",
-        "occupationalCredentialAwarded": "occupationalCredentialAwarded",
-        "timeOfDay": "timeOfDay",
-        "timeToComplete": "timeToComplete",
+        "endDate": input_kwargs['end_date'],
+        "startDate": input_kwargs['start_date'],
+        "maximumEnrollment": input_kwargs['maximum_enrollment'],
+        "occupationalCredentialAwarded": input_kwargs['occupational_credential_awarded'],
+        "timeOfDay": input_kwargs['time_of_day'],
+        "timeToComplete": input_kwargs['time_to_complete'],
         "offers": offers,
         "trainingSalary": training_salary,
         "salaryUponCompletion": salary_upon_completion
@@ -63,7 +38,7 @@ def test_work_based_program_converter_all(program_provider_address_data, offers,
 
     required_fields_as_jsonld.update(recommended_fields)
 
-    output = work_based_program_converter(**kwargs)
+    output = work_based_program_converter(**input_kwargs)
 
     pprint_diff(required_fields_as_jsonld, output)
 
@@ -72,15 +47,15 @@ def test_work_based_program_converter_all(program_provider_address_data, offers,
     expect(json_output).to(equal(json_expected_output))
 
 
-def test_work_based_program_converter_required(program_provider_address_data, required_fields_as_jsonld):
+def test_work_based_program_converter_required(input_kwargs, required_fields_as_jsonld):
     kwargs = {
-        "program_description": "desc",
-        "program_name": "name",
-        "program_url": "url",
-        "provider_name": "provider name",
-        "provider_url": "provider url",
-        "provider_telephone": "telephone",
-        "provider_address": program_provider_address_data
+        "program_description": input_kwargs['program_description'],
+        "program_name": input_kwargs['program_name'],
+        "program_url": input_kwargs['program_url'],
+        "provider_name": input_kwargs['provider_name'],
+        "provider_url": input_kwargs['provider_url'],
+        "provider_telephone": input_kwargs['provider_telephone'],
+        "provider_address": input_kwargs['provider_address']
     }
 
     output = work_based_program_converter(**kwargs)

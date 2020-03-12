@@ -55,16 +55,47 @@ def salary_upon_completion():
 
 
 @pytest.fixture
-def required_fields_as_jsonld():
+def input_kwargs(program_provider_address_data, offers, training_salary, salary_upon_completion):
+    '''
+    This fixture provides all kwargs (required and recommended) that
+    can be passed into the converter.
+    '''
+    return {
+        "program_description": "A description of a Goodwill program",
+        "program_name": "Goodwill Program",
+        "program_url": "goodwill.org",
+        "provider_name": "Goodwill of Tucson",
+        "provider_url": "goodwill.org",
+        "provider_telephone": "333-343-4444",
+        "provider_address": program_provider_address_data,
+        "program_prerequisites": {
+            "credential_category": "HighSchool",
+            "eligible_groups": "Youth",
+            "max_income_eligibility": "20000",
+            "other_program_prerequisites": "other"
+        },
+        "end_date": "2020-12-01",
+        "start_date": "2020-04-01",
+        "maximum_enrollment": "50",
+        "occupational_credential_awarded": "Associate Degree",
+        "time_of_day": "Evening",
+        "time_to_complete": "P6M",
+        "offers_price": offers['priceSpecification']['price'],
+        "training_salary": training_salary['median'],
+        "salary_upon_completion": salary_upon_completion['median']
+    }
+
+@pytest.fixture
+def required_fields_as_jsonld(input_kwargs):
     return {
         "@context": "http://schema.org/",
         "@type": "WorkBasedProgram",
-        "description": "desc",
-        "name": "name",
-        "url": "url",
+        "description": input_kwargs['program_description'],
+        "name": input_kwargs['program_name'],
+        "url": input_kwargs['program_url'],
         "provider": {
             "@type": "EducationalOrganization",
-            "name": "provider name",
+            "name": input_kwargs['provider_name'],
             "address": [ 
                 {
                     "@type": "PostalAddress", 
@@ -74,10 +105,10 @@ def required_fields_as_jsonld():
                     "postalCode": "85713"
                 }
             ],
-            "url": "provider url",
+            "url": input_kwargs['provider_url'],
             "contactPoint": {
                 "@type": "ContactPoint",
-                "telephone": "telephone"
+                "telephone": input_kwargs['provider_telephone']
             }
         }
     }
