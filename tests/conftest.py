@@ -20,3 +20,42 @@ def program_provider_address():
     ]
 
     return program_provider_address_data
+
+
+@pytest.fixture
+def offers():
+    offers_data = {
+        "@type": "Offer",
+        "category": "Total Cost",
+        "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": 2000,
+            "priceCurrency": "USD"
+        }
+    }
+
+    return offers_data
+
+
+@pytest.fixture
+def training_salary():
+    training_salary_data = {
+        "@type": "MonetaryAmountDistribution",
+        "currency": "USD",
+        "duration": "P1H",
+        "median": "11.00"
+    }
+
+    return training_salary_data
+
+
+@pytest.fixture
+def salary_upon_completion():
+    salary_upon_completion_data = {
+        "@type": "MonetaryAmountDistribution",
+        "currency": "USD",
+        "duration": "P1Y",
+        "median": "40000.00"
+    }
+
+    return salary_upon_completion_data

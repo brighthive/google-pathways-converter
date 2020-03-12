@@ -58,19 +58,10 @@ def test_add_prerequisites_data():
     expect(json_output).to(equal(json_expected_output))
 
 
-def test_add_offers_data():
-    offers_price = 123
-
+def test_add_offers_data(offers):
+    offers_price = offers['priceSpecification']['price']
     expected_output = {
-        "offers": {
-            "@type": "Offer",
-            "category": "Total Cost",
-            "priceSpecification": {
-                "@type": "PriceSpecification",
-                "price": 123,
-                "priceCurrency": "USD"
-            }
-        }
+        "offers": offers
     }
 
     output = add_offers_data({}, offers_price)
@@ -83,18 +74,13 @@ def test_add_offers_data():
     expect(json_output).to(equal(json_expected_output))
 
 
-def test_add_training_salary_data(program_provider_address):
-    training_salary = "123.00"
+def test_add_training_salary_data(training_salary):
+    median = training_salary['median']
     expected_output = {
-        "trainingSalary": {
-            "@type": "MonetaryAmountDistribution",
-            "currency": "USD",
-            "duration": "P1H",
-            "median": "123.00"
-        },
+        "trainingSalary": training_salary
     }
 
-    output = add_training_salary_data({}, training_salary)
+    output = add_training_salary_data({}, median)
 
     pprint_diff(expected_output, output)
 
@@ -104,18 +90,13 @@ def test_add_training_salary_data(program_provider_address):
     expect(json_output).to(equal(json_expected_output))
 
 
-def test_add_salary_upon_completion_data(program_provider_address):
-    training_salary = "1234.00"
+def test_add_salary_upon_completion_data(salary_upon_completion):
+    median = salary_upon_completion['median']
     expected_output = {
-        "salaryUponCompletion": {
-            "@type": "MonetaryAmountDistribution",
-            "currency": "USD",
-            "duration": "",
-            "median": "1234.00"
-        }
+        "salaryUponCompletion": salary_upon_completion
     }
 
-    output = add_salary_upon_completion_data({}, training_salary)
+    output = add_salary_upon_completion_data({}, median)
 
     pprint_diff(expected_output, output)
 

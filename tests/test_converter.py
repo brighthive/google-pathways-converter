@@ -4,7 +4,7 @@ import json
 from tests.conftest import pprint_diff
 
 
-def test_work_based_program_converter_all(program_provider_address):
+def test_work_based_program_converter_all(program_provider_address, offers, training_salary, salary_upon_completion):
     kwargs = {
         "program_description": "desc",
         "program_name": "name",
@@ -25,9 +25,9 @@ def test_work_based_program_converter_all(program_provider_address):
         "occupationalCredentialAwarded": "occupationalCredentialAwarded",
         "timeOfDay": "timeOfDay",
         "timeToComplete": "timeToComplete",
-        "offers_price": 123,
-        "training_salary": "123.00",
-        "salary_upon_completion": "1234.00"
+        "offers_price": offers['priceSpecification']['price'],
+        "training_salary": training_salary['median'],
+        "salary_upon_completion": salary_upon_completion['median']
     }
 
     # Schema org
@@ -79,27 +79,9 @@ def test_work_based_program_converter_all(program_provider_address):
         "occupationalCredentialAwarded": "occupationalCredentialAwarded",
         "timeOfDay": "timeOfDay",
         "timeToComplete": "timeToComplete",
-        "offers": {
-            "@type": "Offer",
-            "category": "Total Cost",
-            "priceSpecification": {
-                "@type": "PriceSpecification",
-                "price": 123,
-                "priceCurrency": "USD"
-            }
-        },
-        "trainingSalary": {
-            "@type": "MonetaryAmountDistribution",
-            "currency": "USD",
-            "duration": "P1H",
-            "median": "123.00"
-        },
-        "salaryUponCompletion": {
-            "@type": "MonetaryAmountDistribution",
-            "currency": "USD",
-            "duration": "",
-            "median": "1234.00"
-        }
+        "offers": offers,
+        "trainingSalary": training_salary,
+        "salaryUponCompletion": salary_upon_completion
     }
 
     output = work_based_program_converter(**kwargs)

@@ -95,8 +95,8 @@ def add_training_salary_data(output, price: str):
     training_salary_node = {
         "@type": "MonetaryAmountDistribution",
         "currency": "USD",
-        "duration": "P1H",
-        "median": "123.00"
+        "duration": "P1H", # Denotes hourly wage
+        "median": price
     }
 
     output['trainingSalary'] = training_salary_node
@@ -108,7 +108,7 @@ def add_salary_upon_completion_data(output, price: str):
     training_salary_node = {
         "@type": "MonetaryAmountDistribution",
         "currency": "USD",
-        "duration": "",
+        "duration": "P1Y", # Denotes annual salary
         "median": price
     }
 
