@@ -44,6 +44,8 @@ def test_work_based_program_converter_all(input_kwargs, offers, training_salary,
 
     json_expected_output = json.dumps(required_fields_as_jsonld, sort_keys=True)
     json_output = json.dumps(output, sort_keys=True)
+
+    print(json.dumps(output, indent=4, sort_keys=True))
     expect(json_output).to(equal(json_expected_output))
 
 
