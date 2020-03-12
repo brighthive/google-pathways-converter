@@ -1,5 +1,5 @@
 from converter.converter import Converter
-from converter.helper import (add_header, add_offers_data,
+from converter.work.helper import (add_header, add_offers_data,
                               add_prerequisites_data, add_provider_data,
                               add_salary_upon_completion_data,
                               add_training_salary_data)
