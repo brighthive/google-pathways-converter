@@ -1,10 +1,11 @@
-from expects import expect, equal
-from converter import work_based_program_converter
 import json
+
+from converter import work_based_program_converter
+from expects import equal, expect
 from tests.conftest import pprint_diff
 
 
-def test_work_based_program_converter_all(program_provider_address, offers, training_salary, salary_upon_completion):
+def test_work_based_program_converter_all(program_provider_address_data, offers, training_salary, salary_upon_completion, required_fields_as_jsonld):
     kwargs = {
         "program_description": "desc",
         "program_name": "name",
@@ -12,7 +13,7 @@ def test_work_based_program_converter_all(program_provider_address, offers, trai
         "provider_name": "provider name",
         "provider_url": "provider url",
         "provider_telephone": "telephone",
-        "provider_address": program_provider_address,
+        "provider_address": program_provider_address_data,
         "program_prerequisites": {
             "credential_category": "HighSchool",
             "eligible_groups": "Youth",
@@ -30,31 +31,7 @@ def test_work_based_program_converter_all(program_provider_address, offers, trai
         "salary_upon_completion": salary_upon_completion['median']
     }
 
-    # Schema org
-    expected_output = {
-        "@context": "http://schema.org/",
-        "@type": "WorkBasedProgram",
-        "description": "desc",
-        "name": "name",
-        "url": "url",
-        "provider": {
-            "@type": "EducationalOrganization",
-            "name": "provider name",
-            "address": [
-                {
-                    "@type": "PostalAddress", 
-                    "streetAddress": "1940 East Silverlake Rd",
-                    "addressLocality": "Tucson",
-                    "addressRegion": "AZ",
-                    "postalCode": "85713"
-                }
-            ],
-            "url": "provider url",
-            "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "telephone"
-            }
-        },
+    recommended_fields = {
         "programPrerequisites": [
             {
                 "@type": "EducationalOccupationalCredential", 
@@ -84,16 +61,18 @@ def test_work_based_program_converter_all(program_provider_address, offers, trai
         "salaryUponCompletion": salary_upon_completion
     }
 
+    required_fields_as_jsonld.update(recommended_fields)
+
     output = work_based_program_converter(**kwargs)
 
-    pprint_diff(expected_output, output)
+    pprint_diff(required_fields_as_jsonld, output)
 
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_expected_output = json.dumps(required_fields_as_jsonld, sort_keys=True)
     json_output = json.dumps(output, sort_keys=True)
     expect(json_output).to(equal(json_expected_output))
 
 
-def test_work_based_program_converter_required(program_provider_address):
+def test_work_based_program_converter_required(program_provider_address_data, required_fields_as_jsonld):
     kwargs = {
         "program_description": "desc",
         "program_name": "name",
@@ -101,40 +80,13 @@ def test_work_based_program_converter_required(program_provider_address):
         "provider_name": "provider name",
         "provider_url": "provider url",
         "provider_telephone": "telephone",
-        "provider_address": program_provider_address
-    }
-
-    # Schema org
-    expected_output = {
-        "@context": "http://schema.org/",
-        "@type": "WorkBasedProgram",
-        "description": "desc",
-        "name": "name",
-        "url": "url",
-        "provider": {
-            "@type": "EducationalOrganization",
-            "name": "provider name",
-            "address": [
-                {
-                    "@type": "PostalAddress", 
-                    "streetAddress": "1940 East Silverlake Rd",
-                    "addressLocality": "Tucson",
-                    "addressRegion": "AZ",
-                    "postalCode": "85713"
-                }
-            ],
-            "url": "provider url",
-            "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "telephone"
-            }
-        }
+        "provider_address": program_provider_address_data
     }
 
     output = work_based_program_converter(**kwargs)
 
-    pprint_diff(expected_output, output)
+    pprint_diff(required_fields_as_jsonld, output)
 
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_expected_output = json.dumps(required_fields_as_jsonld, sort_keys=True)
     json_output = json.dumps(output, sort_keys=True)
     expect(json_output).to(equal(json_expected_output))

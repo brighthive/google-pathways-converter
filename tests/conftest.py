@@ -1,5 +1,6 @@
-import pytest
 from pprint import pprint
+
+import pytest
 from deepdiff import DeepDiff
 
 
@@ -9,8 +10,8 @@ def pprint_diff(expected_output, output):
 
 
 @pytest.fixture
-def program_provider_address():
-    program_provider_address_data = [
+def program_provider_address_data():
+    return [
         {
             "street_address": "1940 East Silverlake Rd",
             "address_locality": "Tucson",
@@ -19,12 +20,10 @@ def program_provider_address():
         }
     ]
 
-    return program_provider_address_data
-
 
 @pytest.fixture
 def offers():
-    offers_data = {
+    return {
         "@type": "Offer",
         "category": "Total Cost",
         "priceSpecification": {
@@ -34,28 +33,51 @@ def offers():
         }
     }
 
-    return offers_data
-
 
 @pytest.fixture
 def training_salary():
-    training_salary_data = {
+    return {
         "@type": "MonetaryAmountDistribution",
         "currency": "USD",
         "duration": "P1H",
         "median": "11.00"
     }
 
-    return training_salary_data
-
 
 @pytest.fixture
 def salary_upon_completion():
-    salary_upon_completion_data = {
+    return {
         "@type": "MonetaryAmountDistribution",
         "currency": "USD",
         "duration": "P1Y",
         "median": "40000.00"
     }
 
-    return salary_upon_completion_data
+
+@pytest.fixture
+def required_fields_as_jsonld():
+    return {
+        "@context": "http://schema.org/",
+        "@type": "WorkBasedProgram",
+        "description": "desc",
+        "name": "name",
+        "url": "url",
+        "provider": {
+            "@type": "EducationalOrganization",
+            "name": "provider name",
+            "address": [ 
+                {
+                    "@type": "PostalAddress", 
+                    "streetAddress": "1940 East Silverlake Rd",
+                    "addressLocality": "Tucson",
+                    "addressRegion": "AZ",
+                    "postalCode": "85713"
+                }
+            ],
+            "url": "provider url",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "telephone"
+            }
+        }
+    }

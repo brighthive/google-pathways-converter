@@ -1,18 +1,17 @@
-from converter.helper import (
-    add_provider_data,
-    add_prerequisites_data,
-    add_offers_data,
-    add_training_salary_data,
-    add_salary_upon_completion_data)
 import json
-from expects import expect, equal
+
+from converter.helper import (add_offers_data, add_prerequisites_data,
+                              add_provider_data,
+                              add_salary_upon_completion_data,
+                              add_training_salary_data)
+from expects import equal, expect
 from tests.conftest import pprint_diff
 
 
-def test_add_provider_data(program_provider_address):
+def test_add_provider_data(program_provider_address_data):
     kwargs = {
         "provider_name": "provider name",
-        "provider_address": program_provider_address
+        "provider_address": program_provider_address_data
     }
 
     expected_output = {
