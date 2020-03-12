@@ -1,35 +1,11 @@
-import stringcase
-from converter.helper import (
-    add_header,
-    add_provider_data,
-    add_prerequisites_data,
-    add_offers_data,
-    add_training_salary_data,
-    add_salary_upon_completion_data
-)
-
-kwarg_to_schema_key_mapper = {
-    "program_description": "description",
-    "program_name": "name",
-    "program_url": "url"
-}
-
-basic_keywords = [
-    "description",
-    "name",
-    "url",
-    "endDate",
-    "startDate",
-    "maximumEnrollment",
-    "occupationalCredentialAwarded",
-    "timeOfDay",
-    "timeToComplete",
-]
+from converter.helper import (add_header, add_basic_keywords, add_offers_data,
+                              add_prerequisites_data, add_provider_data,
+                              add_salary_upon_completion_data,
+                              add_training_salary_data)
 
 
 def work_based_program_converter(**kwargs):
     _check_for_required(kwargs)
-    # _check_for_unknown_fields(kwargs)
 
     output = {}
 
@@ -73,20 +49,3 @@ def _check_for_required(kwargs: dict) -> None:
     assert_item("program_name")
     assert_item("program_url")
     assert_item("provider_address")
-
-
-def add_basic_keywords(output, kwargs):
-    for key, value in kwargs.items():
-        # first convert to ours if possible
-        try:
-            key = kwarg_to_schema_key_mapper[key]
-        except KeyError:
-            pass
-
-        camel_case_key = stringcase.camelcase(key)
-        if camel_case_key not in basic_keywords:
-            continue
-
-        output[camel_case_key] = value
-
-    return output
