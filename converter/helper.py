@@ -1,34 +1,16 @@
 import stringcase
 
 
-kwarg_to_schema_key_mapper = {
-    "program_description": "description",
-    "program_name": "name",
-    "program_url": "url"
-}
-
-basic_keywords = [
-    "description",
-    "name",
-    "url",
-    "endDate", # Dates should use ISO-8601 format – do we need to validate?
-    "startDate",
-    "maximumEnrollment",
-    "occupationalCredentialAwarded",
-    "timeOfDay",
-    "timeToComplete", # Again, should be ISO-8601 format (for durations) – should this library validate for this?
-]
-
-def add_header(json_ld: dict) -> dict:
+def add_header(json_ld: dict, type_str: str) -> dict:
     output = {
         "@context": "http://schema.org/",
-        "@type": "WorkBasedProgram",
+        "@type": type_str,
     }
 
     return output
 
 
-def add_basic_keywords(output, kwargs):
+def add_basic_keywords(output, kwargs, basic_keywords, kwarg_to_schema_key_mapper):
     for key, value in kwargs.items():
         try:
             key = kwarg_to_schema_key_mapper[key]
