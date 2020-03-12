@@ -1,1 +1,2 @@
 from converter.work_based_programs_converter import work_based_programs_converter
+from converter.educational_occupational_programs_converter import educational_occupational_programs_converter
