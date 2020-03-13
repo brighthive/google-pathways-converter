@@ -12,7 +12,6 @@ from tests.conftest import pprint_diff
 
 
 def test_add_basic_keywords(work_based_input_kwargs):
-
     kwarg_to_schema_key_mapper = {
         "program_description": "description",
         "program_name": "name",
@@ -138,52 +137,7 @@ def test_add_salary_upon_completion_data(salary_upon_completion):
 
 @pytest.mark.xfail
 def test_add_data_keywords(work_based_input_kwargs, required_fields_as_jsonld, offers, training_salary, salary_upon_completion):
-    # This test should not be an integration test?
-    data_keywords_mapper = {
-        "program_prerequisites": lambda output, value: add_prerequisites_data(output, kwargs['program_prerequisites']),
-        "offers_price": lambda output, kwargs: add_offers_data(output, kwargs['offers_price']),
-        "training_salary": lambda output, kwargs: add_training_salary_data(output, kwargs['training_salary']),
-        "salary_upon_completion": lambda output, kwargs: add_salary_upon_completion_data(output, kwargs['salary_upon_completion']),
-        "all": [
-            lambda output, kwargs: add_header(output, "WorkBasedProgram"),
-            lambda output, kwargs: add_provider_data(output, kwargs)
-        ]
-    }
-
-    recommend_fields = {
-        "programPrerequisites": [
-            {
-                "@type": "EducationalOccupationalCredential", 
-                "credentialCategory": "HighSchool"
-            },
-            {
-                "@type": "Text",
-                "eligibleGroups": "Youth"
-            },
-            {
-                "@type": "Text",
-                "maxIncomeEligibility": "20000"
-            },
-            {
-                "@type": "Text",
-                "otherProgramPrerequisites": "other"
-            }
-        ],
-        "offers": offers,
-        "trainingSalary": training_salary,
-        "salaryUponCompletion": salary_upon_completion
-    }
-    required_fields_as_jsonld.update(recommend_fields)
-    expected_output = required_fields_as_jsonld
-
-    output = add_data_keywords({}, work_based_input_kwargs, data_keywords_mapper)
-
-    pprint_diff(expected_output, output)
-
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-    json_output = json.dumps(output, sort_keys=True)
-
-    expect(json_output).to(equal(json_expected_output))
+    pass
 
 
 @pytest.mark.xfail

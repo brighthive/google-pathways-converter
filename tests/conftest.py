@@ -118,32 +118,3 @@ def educational_input_kwargs(program_provider_address_data, offers, training_sal
         "start_date": "2020-04-01",
         "time_of_day": "Evening",
     }
-
-
-@pytest.fixture
-def required_fields_as_jsonld(work_based_input_kwargs):
-    return {
-        "@context": "http://schema.org/",
-        "@type": "WorkBasedProgram",
-        "description": work_based_input_kwargs['program_description'],
-        "name": work_based_input_kwargs['program_name'],
-        "url": work_based_input_kwargs['program_url'],
-        "provider": {
-            "@type": "EducationalOrganization",
-            "name": work_based_input_kwargs['provider_name'],
-            "address": [ 
-                {
-                    "@type": "PostalAddress", 
-                    "streetAddress": "1940 East Silverlake Rd",
-                    "addressLocality": "Tucson",
-                    "addressRegion": "AZ",
-                    "postalCode": "85713"
-                }
-            ],
-            "url": work_based_input_kwargs['provider_url'],
-            "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": work_based_input_kwargs['provider_telephone']
-            }
-        }
-    }
