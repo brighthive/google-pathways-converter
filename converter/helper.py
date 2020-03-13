@@ -8,7 +8,21 @@ def add_header(json_ld: dict, type_str: str) -> dict:
     return json_ld
 
 
-def add_basic_keywords(output, kwargs, basic_keywords, kwarg_to_schema_key_mapper):
+def add_basic_keywords(output, kwargs, kwarg_to_schema_key_mapper):
+    # A list of non-nested schema.org properties
+    basic_keywords = [
+        "applicationDeadline",
+        "description",
+        "name",
+        "url",
+        "endDate",  # Dates should use ISO-8601 format – do we need to validate?
+        "startDate",
+        "maximumEnrollment",
+        "occupationalCredentialAwarded",
+        "timeOfDay",
+        "timeToComplete",  # Again, should be ISO-8601 format (for durations) – should this library validate for this?
+    ]
+
     for key, value in kwargs.items():
         try:
             key = kwarg_to_schema_key_mapper[key]
@@ -143,5 +157,26 @@ def add_salary_upon_completion_data(output, price: str):
     }
 
     output['salaryUponCompletion'] = training_salary_node
+
+    return output
+
+def add_identifier_data(output, cip=None, program_id=None):
+    identifier_data = []
+
+    if cip:
+        identifier_data.append({
+            "@type": "PropertyValue",
+            "propertyID": "CIP2010",
+            "value": cip
+        })
+    
+    if program_id:
+        identifier_data.append({
+            "@type": "PropertyValue",
+            "propertyID": "ProgramID",
+            "value": program_id
+        })
+    
+    output['identifier'] = identifier_data
 
     return output
