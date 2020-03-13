@@ -1,5 +1,5 @@
 from converter.converter import Converter
-from converter.work.helper import (add_header, add_offers_data,
+from converter.helper import (add_header, add_offers_data,
                               add_prerequisites_data, add_provider_data,
                               add_salary_upon_completion_data,
                               add_training_salary_data)
@@ -9,18 +9,6 @@ kwarg_to_schema_key_mapper = {
     "program_name": "name",
     "program_url": "url"
 }
-
-basic_keywords = [
-    "description",
-    "name",
-    "url",
-    "endDate",  # Dates should use ISO-8601 format – do we need to validate?
-    "startDate",
-    "maximumEnrollment",
-    "occupationalCredentialAwarded",
-    "timeOfDay",
-    "timeToComplete",  # Again, should be ISO-8601 format (for durations) – should this library validate for this?
-]
 
 data_keywords_mapper = {
     "program_prerequisites": lambda output, kwargs: add_prerequisites_data(output, kwargs['program_prerequisites']),
@@ -42,7 +30,6 @@ required_keywords = [
 
 def work_based_programs_converter(**kwargs):
     work_based_programs_converter = Converter(
-        basic_keywords,
         data_keywords_mapper,
         kwarg_to_schema_key_mapper,
         required_keywords)

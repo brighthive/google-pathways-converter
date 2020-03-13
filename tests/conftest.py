@@ -55,7 +55,7 @@ def salary_upon_completion():
 
 
 @pytest.fixture
-def input_kwargs(program_provider_address_data, offers, training_salary, salary_upon_completion):
+def work_based_input_kwargs(program_provider_address_data, offers, training_salary, salary_upon_completion):
     '''
     This fixture provides all kwargs (required and recommended) that
     can be passed into the converter.
@@ -85,17 +85,54 @@ def input_kwargs(program_provider_address_data, offers, training_salary, salary_
         "salary_upon_completion": salary_upon_completion['median']
     }
 
+
 @pytest.fixture
-def required_fields_as_jsonld(input_kwargs):
+def educational_input_kwargs(program_provider_address_data, offers, training_salary, salary_upon_completion):
+    '''
+    This fixture provides all kwargs (required and recommended) that
+    can be passed into the converter.
+    '''
+    return {
+        # "program_description": "An educational occupational program at Goodwill",
+        "application_deadline": "2020-04-01",
+        "program_name": "Goodwill Program",
+        "identifier_cip": "51.3902", # optional, but identifier blob is not
+        "identifier_program_id": "5688", # optional, but identifier blob is not
+        "offers_price": 2000,
+        "program_url": "goodwill.org",
+        "provider_name": "Goodwill of Tucson",
+        "provider_url": "goodwill.org",
+        "provider_telephone": "333-343-4444",
+        "provider_address": program_provider_address_data,
+        "time_to_complete": "P6M",
+        # "program_prerequisites": {
+        #     "credential_category": "HighSchool",
+        #     "eligible_groups": "Youth",
+        #     "max_income_eligibility": "20000",
+        #     "other_program_prerequisites": "other"
+        # },
+        # "end_date": "2020-12-01",
+        # "start_date": "2020-04-01",
+        # "maximum_enrollment": "50",
+        # "occupational_credential_awarded": "Associate Degree",
+        # "time_of_day": "Evening",
+        
+        # "training_salary": training_salary['median'],
+        # "salary_upon_completion": salary_upon_completion['median']
+    }
+
+
+@pytest.fixture
+def required_fields_as_jsonld(work_based_input_kwargs):
     return {
         "@context": "http://schema.org/",
         "@type": "WorkBasedProgram",
-        "description": input_kwargs['program_description'],
-        "name": input_kwargs['program_name'],
-        "url": input_kwargs['program_url'],
+        "description": work_based_input_kwargs['program_description'],
+        "name": work_based_input_kwargs['program_name'],
+        "url": work_based_input_kwargs['program_url'],
         "provider": {
             "@type": "EducationalOrganization",
-            "name": input_kwargs['provider_name'],
+            "name": work_based_input_kwargs['provider_name'],
             "address": [ 
                 {
                     "@type": "PostalAddress", 
@@ -105,10 +142,10 @@ def required_fields_as_jsonld(input_kwargs):
                     "postalCode": "85713"
                 }
             ],
-            "url": input_kwargs['provider_url'],
+            "url": work_based_input_kwargs['provider_url'],
             "contactPoint": {
                 "@type": "ContactPoint",
-                "telephone": input_kwargs['provider_telephone']
+                "telephone": work_based_input_kwargs['provider_telephone']
             }
         }
     }

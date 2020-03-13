@@ -1,10 +1,9 @@
-from converter.work.helper import add_basic_keywords, add_data_keywords
+from converter.helper import add_basic_keywords, add_data_keywords
 
 class Converter():
-    def __init__(self, basic_keywords, data_keywords_mapper, kwarg_to_schema_key_mapper, required_keywords):
+    def __init__(self, data_keywords_mapper, kwarg_to_schema_key_mapper, required_keywords):
 
         self.required_keywords = required_keywords
-        self.basic_keywords = basic_keywords
         self.data_keywords_mapper = data_keywords_mapper
         self.kwarg_to_schema_key_mapper = kwarg_to_schema_key_mapper
 
@@ -33,7 +32,6 @@ class Converter():
         self.output = add_basic_keywords(
             self.output,
             kwargs,
-            self.basic_keywords,
             self.kwarg_to_schema_key_mapper)
 
     def _add_data_keywords(self, kwargs):
