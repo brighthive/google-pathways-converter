@@ -20,7 +20,8 @@ def add_basic_keywords(output, kwargs, kwarg_to_schema_key_mapper):
         "maximumEnrollment",
         "occupationalCredentialAwarded",
         "timeOfDay",
-        "timeToComplete",  # Again, should be ISO-8601 format (for durations) – should this library validate for this?
+        "timeToComplete", # Again, should be ISO-8601 format (for durations) – should this library validate for this?
+        "applicationStartDate" # ISO-8601 format
     ]
 
     for key, value in kwargs.items():
