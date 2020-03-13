@@ -58,7 +58,7 @@ def salary_upon_completion():
 def work_based_input_kwargs(program_provider_address_data, offers, training_salary, salary_upon_completion):
     '''
     This fixture provides all kwargs (required and recommended) that
-    can be passed into the converter.
+    can be passed into the converter for WorkBasedPrograms.
     '''
     return {
         "program_description": "A description of a Goodwill program",
@@ -90,14 +90,11 @@ def work_based_input_kwargs(program_provider_address_data, offers, training_sala
 def educational_input_kwargs(program_provider_address_data, offers, training_salary, salary_upon_completion):
     '''
     This fixture provides all kwargs (required and recommended) that
-    can be passed into the converter.
+    can be passed into the converter for EducationalOccupationalPrograms.
     '''
     return {
-        # "program_description": "An educational occupational program at Goodwill",
         "application_deadline": "2020-04-01",
         "program_name": "Goodwill Program",
-        "identifier_cip": "51.3902", # optional, but identifier blob is not
-        "identifier_program_id": "5688", # optional, but identifier blob is not
         "offers_price": 2000,
         "program_url": "goodwill.org",
         "provider_name": "Goodwill of Tucson",
@@ -105,20 +102,21 @@ def educational_input_kwargs(program_provider_address_data, offers, training_sal
         "provider_telephone": "333-343-4444",
         "provider_address": program_provider_address_data,
         "time_to_complete": "P6M",
-        # "program_prerequisites": {
-        #     "credential_category": "HighSchool",
-        #     "eligible_groups": "Youth",
-        #     "max_income_eligibility": "20000",
-        #     "other_program_prerequisites": "other"
-        # },
-        # "end_date": "2020-12-01",
-        # "start_date": "2020-04-01",
-        # "maximum_enrollment": "50",
-        # "occupational_credential_awarded": "Associate Degree",
-        # "time_of_day": "Evening",
-        
-        # "training_salary": training_salary['median'],
-        # "salary_upon_completion": salary_upon_completion['median']
+        "identifier_cip": "51.3902", # optional, but identifier blob is not
+        "identifier_program_id": "5688", # optional, but identifier blob is not
+        "application_start_date": "2020-01-01",
+        "program_prerequisites": {
+            "credential_category": "HighSchool",
+            "eligible_groups": "Youth",
+            "max_income_eligibility": "20000",
+            "other_program_prerequisites": "other"
+        },
+        "end_date": "2020-12-01",
+        "occupational_credential_awarded": "Associate Degree",
+        "maximum_enrollment": "50", # It looks like Goodwill is not actually collecting this....
+        "offers_price": offers['priceSpecification']['price'],
+        "start_date": "2020-04-01",
+        "time_of_day": "Evening",
     }
 
 

@@ -24,14 +24,14 @@ kwarg_to_schema_key_mapper = {
 }
 
 data_keywords_mapper = {
-    # "program_prerequisites": lambda output, kwargs: add_prerequisites_data(output, kwargs['program_prerequisites']),
+    "program_prerequisites": lambda output, kwargs: add_prerequisites_data(output, kwargs['program_prerequisites']),
     "offers_price": lambda output, kwargs: add_offers_data(output, kwargs['offers_price']),
     # "training_salary": lambda output, kwargs: add_training_salary_data(output, kwargs['training_salary']),
     # "salary_upon_completion": lambda output, kwargs: add_salary_upon_completion_data(output, kwargs['salary_upon_completion']),
     "all": [
         lambda output, kwargs: add_header(output, "EducationalOccupationalProgram"),
         lambda output, kwargs: add_provider_data(output, kwargs),
-        lambda output, kwargs: add_identifier_data(output, kwargs['identifier_cip'], kwargs['identifier_program_id'])
+        lambda output, kwargs: add_identifier_data(output, kwargs.get('identifier_cip'), kwargs.get('identifier_program_id'))
     ]
 }
 
