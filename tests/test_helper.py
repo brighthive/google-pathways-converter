@@ -1,17 +1,17 @@
 import json
 
-from converter.helper import (add_offers_data, add_basic_keywords, add_prerequisites_data,
-                              add_provider_data,
-                              add_salary_upon_completion_data,
-                              add_training_salary_data,
-                              add_data_keywords,
-                              add_header)
-from expects import equal, expect
-from tests.conftest import pprint_diff
 import pytest
+from expects import equal, expect
+
+from converter.helper import (add_basic_keywords, add_data_keywords,
+                              add_header, add_identifier_data, add_offers_data,
+                              add_prerequisites_data, add_provider_data,
+                              add_salary_upon_completion_data,
+                              add_training_salary_data)
+from tests.conftest import pprint_diff
 
 
-def test_add_basic_keywords(input_kwargs):
+def test_add_basic_keywords(work_based_input_kwargs):
 
     kwarg_to_schema_key_mapper = {
         "program_description": "description",
@@ -19,30 +19,19 @@ def test_add_basic_keywords(input_kwargs):
         "program_url": "url"
     }
 
-    basic_keywords = [
-        "description",
-        "name",
-        "url",
-        "endDate",  # Dates should use ISO-8601 format – do we need to validate?
-        "startDate",
-        "maximumEnrollment",
-        "occupationalCredentialAwarded",
-        "timeOfDay",
-        "timeToComplete",  # Again, should be ISO-8601 format (for durations) – should this library validate for this?
-    ]
     expected_output = {
-        "description": input_kwargs['program_description'],
-        "name": input_kwargs['program_name'],
-        "url": input_kwargs['program_url'],
-        "endDate": input_kwargs['end_date'],
-        "startDate": input_kwargs['start_date'],
-        "maximumEnrollment": input_kwargs['maximum_enrollment'],
-        "occupationalCredentialAwarded": input_kwargs['occupational_credential_awarded'],
-        "timeOfDay": input_kwargs['time_of_day'],
-        "timeToComplete": input_kwargs['time_to_complete']
+        "description": work_based_input_kwargs['program_description'],
+        "name": work_based_input_kwargs['program_name'],
+        "url": work_based_input_kwargs['program_url'],
+        "endDate": work_based_input_kwargs['end_date'],
+        "startDate": work_based_input_kwargs['start_date'],
+        "maximumEnrollment": work_based_input_kwargs['maximum_enrollment'],
+        "occupationalCredentialAwarded": work_based_input_kwargs['occupational_credential_awarded'],
+        "timeOfDay": work_based_input_kwargs['time_of_day'],
+        "timeToComplete": work_based_input_kwargs['time_to_complete']
     }
 
-    output = add_basic_keywords({}, input_kwargs, basic_keywords, kwarg_to_schema_key_mapper)
+    output = add_basic_keywords({}, work_based_input_kwargs,  kwarg_to_schema_key_mapper)
 
     json_expected_output = json.dumps(expected_output, sort_keys=True)
     json_output = json.dumps(output, sort_keys=True)
@@ -148,7 +137,7 @@ def test_add_salary_upon_completion_data(salary_upon_completion):
 
 
 @pytest.mark.xfail
-def test_add_data_keywords(input_kwargs, required_fields_as_jsonld, offers, training_salary, salary_upon_completion):
+def test_add_data_keywords(work_based_input_kwargs, required_fields_as_jsonld, offers, training_salary, salary_upon_completion):
     # This test should not be an integration test?
     data_keywords_mapper = {
         "program_prerequisites": lambda output, value: add_prerequisites_data(output, kwargs['program_prerequisites']),
@@ -187,7 +176,7 @@ def test_add_data_keywords(input_kwargs, required_fields_as_jsonld, offers, trai
     required_fields_as_jsonld.update(recommend_fields)
     expected_output = required_fields_as_jsonld
 
-    output = add_data_keywords({}, input_kwargs, data_keywords_mapper)
+    output = add_data_keywords({}, work_based_input_kwargs, data_keywords_mapper)
 
     pprint_diff(expected_output, output)
 
@@ -200,3 +189,33 @@ def test_add_data_keywords(input_kwargs, required_fields_as_jsonld, offers, trai
 @pytest.mark.xfail
 def test_add_header():
     pass
+
+
+def test_add_identifier_data(educational_input_kwargs):
+    cip = educational_input_kwargs['identifier_cip']
+    program_id = educational_input_kwargs['identifier_program_id']
+
+    output = add_identifier_data({}, cip=cip, program_id=program_id)
+
+    expected_output = {
+        "identifier": [
+            {
+                "@type": "PropertyValue",
+                "propertyID": "CIP2010",
+                "value": cip
+            },
+            {
+                "@type": "PropertyValue",
+                "propertyID": "ProgramID",
+                "value": program_id
+            }
+        ]
+    }
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
+
+    expect(json_output).to(equal(json_expected_output))
+
+
+
