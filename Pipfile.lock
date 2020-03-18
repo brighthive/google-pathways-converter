@@ -41,11 +41,11 @@
         },
         "deepdiff": {
             "hashes": [
-                "sha256:eee68cc6853b47ded2d91524f74b681e09d66f68ffb3388ff15c5cdbc265bedb",
-                "sha256:f0022be05c44c5c85c7e95c4fda89a1f28ddb3408f889f51ff8b9841951b9f9d"
+                "sha256:23199178272a53a7d2429ff3a592d82990c53110dbba6df6e1fa18199b8b1148",
+                "sha256:81cb01e1341e651171fc4d60035bbb5186944045b1419eeac1adb3c483d6a8c2"
             ],
             "index": "pypi",
-            "version": "==4.3.0"
+            "version": "==4.3.1"
         },
         "entrypoints": {
             "hashes": [
@@ -142,11 +142,11 @@
         },
         "pytest": {
             "hashes": [
-                "sha256:0d5fe9189a148acc3c3eb2ac8e1ac0742cb7618c084f3d228baaec0c254b318d",
-                "sha256:ff615c761e25eb25df19edddc0b970302d2a9091fbce0e7213298d85fb61fef6"
+                "sha256:0e5b30f5cb04e887b91b1ee519fa3d89049595f428c1db76e73bd7f17b09b172",
+                "sha256:84dde37075b8805f3d1f392cc47e38a0e59518fb46a431cfdaf7cf1ce805f970"
             ],
             "index": "pypi",
-            "version": "==5.3.5"
+            "version": "==5.4.1"
         },
         "six": {
             "hashes": [
