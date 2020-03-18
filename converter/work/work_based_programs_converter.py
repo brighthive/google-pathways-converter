@@ -21,11 +21,9 @@ data_keywords_mapper = {
     ]
 }
 
+# A list of keywords that MUST be included in the source data, i.e., the data passed in a kwargs.
 required_keywords = [
-    "program_description",
-    "program_name",
-    "program_url",
-    "provider_address",
+    "program_description"
 ]
 
 def work_based_programs_converter(**kwargs):
