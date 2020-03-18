@@ -140,9 +140,22 @@ def test_add_data_keywords(work_based_input_kwargs, required_fields_as_jsonld, o
     pass
 
 
-@pytest.mark.xfail
-def test_add_header():
-    pass
+@pytest.mark.parametrize("program_type", [
+    ("EducationalOccupationalProgram"),
+    ("WorkBasedProgram")
+])
+def test_add_header(program_type):
+    output = add_header({}, program_type)
+
+    expected_output = {
+        "@context": "http://schema.org/",
+        "@type": program_type
+    }
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
+
+    expect(json_output).to(equal(json_expected_output))
 
 
 def test_add_identifier_data(educational_input_kwargs):
