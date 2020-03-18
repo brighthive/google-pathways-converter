@@ -127,17 +127,84 @@ def test_add_salary_upon_completion_data(salary_upon_completion):
 
     output = add_salary_upon_completion_data({}, median)
 
-    pprint_diff(expected_output, output)
-
     json_expected_output = json.dumps(expected_output, sort_keys=True)
     json_output = json.dumps(output, sort_keys=True)
 
     expect(json_output).to(equal(json_expected_output))
 
 
-@pytest.mark.xfail
-def test_add_data_keywords(work_based_input_kwargs, required_fields_as_jsonld, offers, training_salary, salary_upon_completion):
-    pass
+def test_add_data_keywords(work_based_input_kwargs, training_salary, salary_upon_completion):
+    data_keywords_mapper = {
+        "program_prerequisites": lambda output, kwargs: add_prerequisites_data(output, kwargs['program_prerequisites']),
+        "offers_price": lambda output, kwargs: add_offers_data(output, kwargs['offers_price']),
+        "training_salary": lambda output, kwargs: add_training_salary_data(output, kwargs['training_salary']),
+        "salary_upon_completion": lambda output, kwargs: add_salary_upon_completion_data(output, kwargs['salary_upon_completion']),
+        "all": [
+            lambda output, kwargs: add_header(output, "WorkBasedProgram"),
+            lambda output, kwargs: add_provider_data(output, kwargs)
+        ]
+    }
+
+    expected_output = {
+        "@context": "http://schema.org/",
+        "@type": "WorkBasedProgram",
+        "offers": {
+            "@type": "Offer",
+            "category": "Total Cost",
+            "priceSpecification": {
+                "@type": "PriceSpecification",
+                "price": work_based_input_kwargs["offers_price"],
+                "priceCurrency": "USD"
+            }
+        },
+        "programPrerequisites": [
+            {
+                "@type": "EducationalOccupationalCredential",
+                "credentialCategory": work_based_input_kwargs["program_prerequisites"]["credential_category"]
+            },
+            {
+                "@type": "Text",
+                "eligibleGroups": work_based_input_kwargs["program_prerequisites"]["eligible_groups"]
+            },
+            {
+                "@type": "Text",
+                "maxIncomeEligibility": work_based_input_kwargs["program_prerequisites"]["max_income_eligibility"]
+            },
+            {
+                "@type": "Text",
+                "otherProgramPrerequisites": work_based_input_kwargs["program_prerequisites"]["other_program_prerequisites"]
+            }
+        ],
+        "provider": {
+            "@type": "EducationalOrganization",
+            "name": work_based_input_kwargs['provider_name'],
+            "address": [ 
+                {
+                    "@type": "PostalAddress", 
+                    "streetAddress": work_based_input_kwargs['provider_address'][0]['street_address'],
+                    "addressLocality": work_based_input_kwargs['provider_address'][0]['address_locality'],
+                    "addressRegion": work_based_input_kwargs['provider_address'][0]['address_region'],
+                    "postalCode": work_based_input_kwargs['provider_address'][0]['postal_code']
+                }
+            ],
+            "url": work_based_input_kwargs['provider_url'],
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": work_based_input_kwargs['provider_telephone']
+            }
+        },
+        "trainingSalary": training_salary,
+        "salaryUponCompletion": salary_upon_completion
+    }
+    
+    output = add_data_keywords({}, work_based_input_kwargs, data_keywords_mapper)
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
+
+    pprint_diff(expected_output, output)
+
+    expect(json_output).to(equal(json_expected_output))
 
 
 @pytest.mark.parametrize("program_type", [
