@@ -2,8 +2,7 @@ from converter.helper import add_basic_keywords, add_data_keywords
 
 class Converter():
     def __init__(self, data_keywords_mapper, kwarg_to_schema_key_mapper, required_keywords):
-
-        self.required_keywords = required_keywords
+        self.required_keywords = ["provider_address", "program_name", "program_url"] + required_keywords
         self.data_keywords_mapper = data_keywords_mapper
         self.kwarg_to_schema_key_mapper = kwarg_to_schema_key_mapper
 
