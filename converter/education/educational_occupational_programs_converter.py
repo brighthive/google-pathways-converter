@@ -30,7 +30,7 @@ data_keywords_mapper = {
     ]
 }
 
-def educational_occupational_programs_converter(kwargs):
+def educational_occupational_programs_converter(**kwargs):
     educational_occupational_programs_converter = Converter(
         data_keywords_mapper,
         kwarg_to_schema_key_mapper,
