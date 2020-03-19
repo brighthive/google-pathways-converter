@@ -52,7 +52,7 @@ You need to consider the following fields for the educational-occupational conve
 | offers_price                       | Integer
 | time_of_day                        | String 
 
-## Converter kwargs: Work Based Programs
+### Converter kwargs: Work Based Programs
 You need to consider the following fields for the work-based converter: `work_based_programs_converter`.
 
 | Field        | Type   
@@ -76,7 +76,7 @@ You need to consider the following fields for the work-based converter: `work_ba
 | offers_price                       | Integer
 | time_of_day                        | String 
 
-**Example**
+### Example
 
 Below gives an example of the `educational_occupational_programs_converter`. Note: you can pass in a dict (recommended), or you may pass in the kwargs directly. If you use a dict, then remember to unpack it.
 
