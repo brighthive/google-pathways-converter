@@ -72,7 +72,8 @@ def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
             "telephone": kwargs['provider_telephone']
         }
 
-    # Note! ProviderAddress is a required field, so we do not need to handle a KeyError.
+    # `provider_address` is a list that can contain one or more addresses.
+    # `provider_address` is a required field, so we do not need to handle a KeyError.
     for address in kwargs['provider_address']:
         json_ld = add_address_data(json_ld, address)
 

@@ -2,7 +2,7 @@ import json
 
 from expects import equal, expect
 
-from converter.helper import add_provider_data
+from converter.helper import add_provider_data, add_address_data
 from tests.conftest import pprint_diff
 
 def test_add_provider_data_all_fields(work_based_input_kwargs, program_provider_address_data):
@@ -69,6 +69,54 @@ def test_add_provider_data_only_required_fields(work_based_input_kwargs, program
 
     expect(json_output).to(equal(json_expected_output))
 
+def test_add_address_data(program_provider_address_data):
+    """
+    `add_provider_data` calls `add_address_data`. 
+    This test and the following one unit test that `add_address_data` populates the 
+    address property and allows optional values.
+    """
+    expected_output = {
+        "provider": {
+            "address": [ 
+                {
+                    "@type": "PostalAddress", 
+                    "streetAddress": program_provider_address_data[0]['street_address'],
+                    "addressLocality": program_provider_address_data[0]['address_locality'],
+                    "addressRegion": program_provider_address_data[0]['address_region'],
+                    "postalCode": program_provider_address_data[0]['postal_code']
+                }
+            ]
+        }
+    }
 
-# TODO: this test, which gets called by add_provider....
-# def test_add_address_data():
+    output = add_address_data({"provider": {}}, program_provider_address_data[0])
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
+
+    expect(json_output).to(equal(json_expected_output))
+
+def test_add_address_data_empty_values():
+    expected_output = {
+        "provider": {
+            "address": [ 
+                {
+                    "@type": "PostalAddress", 
+                    "streetAddress": "",
+                    "addressLocality": "",
+                    "addressRegion": "",
+                    "postalCode": ""
+                }
+            ]
+        }
+    }
+
+    output = add_address_data({"provider": {}}, {})
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
+
+    expect(json_output).to(equal(json_expected_output))
+
+
+
