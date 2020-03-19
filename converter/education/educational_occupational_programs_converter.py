@@ -7,13 +7,10 @@ from converter.helper import (add_header, add_offers_data,
 # A list of keywords that MUST be included in the source data, i.e., the data passed in a kwargs.
 required_keywords = [
     "application_deadline",
-    "program_name",
-    "offers_price",
-    "program_url", 
+    "offers_price", 
     "provider_name", 
     "provider_url", 
     "provider_telephone", 
-    "provider_address",
     "time_to_complete", 
 ]
 

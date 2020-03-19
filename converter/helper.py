@@ -72,13 +72,15 @@ def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
             "telephone": kwargs['provider_telephone']
         }
 
+    # `provider_address` is a list that can contain one or more addresses.
+    # `provider_address` is a required field, so we do not need to handle a KeyError.
     for address in kwargs['provider_address']:
-        json_ld = _add_address_data(json_ld, address)
+        json_ld = add_address_data(json_ld, address)
 
     return json_ld
 
 
-def _add_address_data(json_ld: dict, address: dict) -> dict:    
+def add_address_data(json_ld: dict, address: dict) -> dict:    
     if 'address' not in json_ld['provider']:
         json_ld['provider']['address'] = []
 
@@ -99,12 +101,12 @@ def add_prerequisites_data(json_ld: dict, prerequisites: list) -> dict:
     json_ld['programPrerequisites'] = []
 
     for prereq_key, prereq_value in prerequisites.items():
-        json_ld = _add_prerequisite_data(json_ld, prereq_key, prereq_value)
+        json_ld = add_prerequisite(json_ld, prereq_key, prereq_value)
 
     return json_ld
 
 
-def _add_prerequisite_data(json_ld: dict, prereq_key: str, prereq_value: str) -> dict:
+def add_prerequisite(json_ld: dict, prereq_key: str, prereq_value: str) -> dict:
     prereq_type = "Text"
     if "credential_category" == prereq_key:
         prereq_type = "EducationalOccupationalCredential"
