@@ -8,7 +8,7 @@ from tests.conftest import pprint_diff
 
 
 def test_educational_occupational_converter_all(educational_input_kwargs, offers):
-    output = educational_occupational_programs_converter(educational_input_kwargs)
+    output = educational_occupational_programs_converter(**educational_input_kwargs)
     expected_output = {
         "@context": "http://schema.org/",
         "@type": "EducationalOccupationalProgram",
@@ -121,7 +121,7 @@ def test_educational_occupational_converter_recommended(educational_input_kwargs
         "timeToComplete": educational_input_kwargs['time_to_complete']
     }
 
-    output = educational_occupational_programs_converter(required_kwargs)
+    output = educational_occupational_programs_converter(**required_kwargs)
 
     json_expected_output = json.dumps(expected_output, sort_keys=True)
     json_output = json.dumps(output, sort_keys=True)
