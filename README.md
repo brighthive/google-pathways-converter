@@ -1,17 +1,14 @@
 # google-pathways-converter
 
-The `google-pathways-converter` is a Python package that converts a dictionary of keyword arguments into a Google-pathways-friendly JSON-LD.  
+The `google-pathways-converter` is a Python package that converts a dictionary of keyword arguments into Google-pathways-friendly JSON-LD.  
 
 ## Motivation (Why did we build this?)
 
-[Google Pathways](https://developers.google.com/search/docs/data-types/job-training), an online utility integrated with the Google search engine, illuminates "pathways" for job seekers trying to acquire skills for a new role, job, or career. Google  reads structured data from publicly available web pages, and if compatible with Pathways, the data appears in Google search results. Try it for yourself! Go to [Google](https://www.google.com/), and enter “job training and Richmond, VA”. You should see a panel with expandable results for jobs, paid training, and educational programs near Richmond. 
+An online utility integrated with the Google search engine, [Google Pathways](https://developers.google.com/search/docs/data-types/job-training) illuminates "pathways" for job seekers trying to acquire skills for a new role, job, or career. Google  reads structured data from publicly available web pages, and if compatible with Pathways, the data appears in Google search results. *Try it for yourself!* Go to [Google](https://www.google.com/), and enter “job training and Richmond, VA”. You should see a panel with expandable results for jobs, paid training, and educational programs near Richmond. 
 
-Google only ingests programs data that aligns with the specific schema definitions standardized by [schema.org](https://schema.org/). Schema.org specifies schemas for two program types: `WorkBasedProgram` or `EducationalOccupationalProgram`. A work-based program both provides job training and pays a wage. An educational-occupational program does not pay a wage, but offers a learning experience, which may or may not require the student to pay tuition and/or fees.
+Google only ingests programs data that aligns with the schema definitions standardized by [schema.org](https://schema.org/). Schema.org specifies schemas for two program types: `WorkBasedProgram` and `EducationalOccupationalProgram`. A work-based program both provides job training and pays a wage. An educational-occupational program does not pay a wage, but offers a learning experience, which may or may not require the student to pay tuition and/or fees.
 
 A BrightHive Data Trust may include data resources that describe work-based and/or educational-occupational programs. In many cases, Data Trust members want to easily, securely, and effectively disseminate information about their program offerings – something that Google Pathways facilitates. To this end, the `google-pathways-converter` library transforms data resources into JSON-LD and makes it possible to integrate programs data with Google Pathways.
-
-## DEMO
-What does this tool do? Screenshots and GIFs.
 
 ## Getting Started
 
@@ -28,14 +25,12 @@ Then, install the library wherever you need to it.
 from converter import educational_occupational_programs_converter, work_based_programs_converter
 ```
 
-### Using the converters
+### Converter kwargs: Educational Occupational Programs
+You need to consider the following fields for the educational-occupational converter: `educational_occupational_programs_converter`.
 
-`google-pathways-converter` includes converters for educational-occupational and work-based programs data. Each converter has slightly different requirements for keyword arguments (as specified by the Google Pathways docs). 
-
-**Educational Occupational**
-
-| Required field        | Type   
+| Field        | Type   
 | --------------------- | -------------
+| **REQUIRED FIELDS**  
 | program_name          | String              
 | program_url           | String      
 | provider_address      | A list of dicts. Each dict should have at least one of the following keys: street_address, address_locality, address_region, postal_code.        
@@ -45,9 +40,7 @@ from converter import educational_occupational_programs_converter, work_based_pr
 | provider_url          | String
 | provider_telephone    | String
 | time_to_complete      | String that represents a duration in ISO-8601 format
-
-| Recommended fields                 | Type   
-| ---------------------------------- | -------------
+| **RECOMMENDED FIELDS**                
 | identifier_cip                     | String
 | identifier_program_id              | String
 | application_start_date             | String
@@ -59,17 +52,17 @@ from converter import educational_occupational_programs_converter, work_based_pr
 | offers_price                       | Integer
 | time_of_day                        | String 
 
-**Work Based**
+## Converter kwargs: Work Based Programs
+You need to consider the following fields for the work-based converter: `work_based_programs_converter`.
 
-| Required field        | Type   
+| Field        | Type   
 | --------------------- | -------------
+| **REQUIRED FIELDS**  
 | program_name          | String              
 | program_url           | String      
 | provider_address      | A list of dicts. Each dict should have at least one of the following keys: street_address, address_locality, address_region, postal_code. 
 | program_description   | String
-
-| Recommended fields                 | Type   
-| ---------------------------------- | -------------
+| **RECOMMENDED FIELDS**   
 | program_description                | String
 | provider_name                      | String
 | provider_url                       | String
@@ -84,6 +77,7 @@ from converter import educational_occupational_programs_converter, work_based_pr
 | time_of_day                        | String 
 
 **Example**
+
 Below gives an example of the `educational_occupational_programs_converter`. Note: you can pass in a dict (recommended), or you may pass in the kwargs directly. If you use a dict, then remember to unpack it.
 
 ```
