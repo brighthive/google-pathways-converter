@@ -38,101 +38,6 @@ def test_add_basic_keywords(work_based_input_kwargs):
     expect(json_output).to(equal(json_expected_output))
 
 
-def test_add_provider_data(program_provider_address_data):
-    kwargs = {
-        "provider_name": "provider name",
-        "provider_address": program_provider_address_data
-    }
-
-    expected_output = {
-        "provider": {
-            "@type": "EducationalOrganization",
-            "name": "provider name",
-            "address": [
-                {
-                    "@type": "PostalAddress", 
-                    "streetAddress": "1940 East Silverlake Rd",
-                    "addressLocality": "Tucson",
-                    "addressRegion": "AZ",
-                    "postalCode": "85713"
-                }
-            ]
-        },
-    }
-
-    output = add_provider_data({}, kwargs)
-
-    pprint_diff(expected_output, output)
-
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-    json_output = json.dumps(output, sort_keys=True)
-
-    expect(json_output).to(equal(json_expected_output))
-
-
-def test_add_prerequisites_data():
-    kwargs = {}
-
-    expected_output = {
-        "programPrerequisites": []
-    }
-
-    output = add_prerequisites_data({}, kwargs)
-
-    pprint_diff(expected_output, output)
-
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-    json_output = json.dumps(output, sort_keys=True)
-
-    expect(json_output).to(equal(json_expected_output))
-
-
-def test_add_offers_data(offers):
-    offers_price = offers['priceSpecification']['price']
-    expected_output = {
-        "offers": offers
-    }
-
-    output = add_offers_data({}, offers_price)
-
-    pprint_diff(expected_output, output)
-
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-    json_output = json.dumps(output, sort_keys=True)
-
-    expect(json_output).to(equal(json_expected_output))
-
-
-def test_add_training_salary_data(training_salary):
-    median = training_salary['median']
-    expected_output = {
-        "trainingSalary": training_salary
-    }
-
-    output = add_training_salary_data({}, median)
-
-    pprint_diff(expected_output, output)
-
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-    json_output = json.dumps(output, sort_keys=True)
-
-    expect(json_output).to(equal(json_expected_output))
-
-
-def test_add_salary_upon_completion_data(salary_upon_completion):
-    median = salary_upon_completion['median']
-    expected_output = {
-        "salaryUponCompletion": salary_upon_completion
-    }
-
-    output = add_salary_upon_completion_data({}, median)
-
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-    json_output = json.dumps(output, sort_keys=True)
-
-    expect(json_output).to(equal(json_expected_output))
-
-
 def test_add_data_keywords(work_based_input_kwargs, training_salary, salary_upon_completion):
     data_keywords_mapper = {
         "program_prerequisites": lambda output, kwargs: add_prerequisites_data(output, kwargs['program_prerequisites']),
@@ -202,7 +107,51 @@ def test_add_data_keywords(work_based_input_kwargs, training_salary, salary_upon
     json_expected_output = json.dumps(expected_output, sort_keys=True)
     json_output = json.dumps(output, sort_keys=True)
 
+    expect(json_output).to(equal(json_expected_output))
+
+
+def test_add_offers_data(offers):
+    offers_price = offers['priceSpecification']['price']
+    expected_output = {
+        "offers": offers
+    }
+
+    output = add_offers_data({}, offers_price)
+
     pprint_diff(expected_output, output)
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
+
+    expect(json_output).to(equal(json_expected_output))
+
+
+def test_add_training_salary_data(training_salary):
+    median = training_salary['median']
+    expected_output = {
+        "trainingSalary": training_salary
+    }
+
+    output = add_training_salary_data({}, median)
+
+    pprint_diff(expected_output, output)
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
+
+    expect(json_output).to(equal(json_expected_output))
+
+
+def test_add_salary_upon_completion_data(salary_upon_completion):
+    median = salary_upon_completion['median']
+    expected_output = {
+        "salaryUponCompletion": salary_upon_completion
+    }
+
+    output = add_salary_upon_completion_data({}, median)
+
+    json_expected_output = json.dumps(expected_output, sort_keys=True)
+    json_output = json.dumps(output, sort_keys=True)
 
     expect(json_output).to(equal(json_expected_output))
 
@@ -223,33 +172,3 @@ def test_add_header(program_type):
     json_output = json.dumps(output, sort_keys=True)
 
     expect(json_output).to(equal(json_expected_output))
-
-
-def test_add_identifier_data(educational_input_kwargs):
-    cip = educational_input_kwargs['identifier_cip']
-    program_id = educational_input_kwargs['identifier_program_id']
-
-    output = add_identifier_data({}, cip=cip, program_id=program_id)
-
-    expected_output = {
-        "identifier": [
-            {
-                "@type": "PropertyValue",
-                "propertyID": "CIP2010",
-                "value": cip
-            },
-            {
-                "@type": "PropertyValue",
-                "propertyID": "ProgramID",
-                "value": program_id
-            }
-        ]
-    }
-
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-    json_output = json.dumps(output, sort_keys=True)
-
-    expect(json_output).to(equal(json_expected_output))
-
-
-
