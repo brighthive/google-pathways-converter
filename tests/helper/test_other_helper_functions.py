@@ -110,23 +110,6 @@ def test_add_data_keywords(work_based_input_kwargs, training_salary, salary_upon
     expect(json_output).to(equal(json_expected_output))
 
 
-def test_add_prerequisites_data():
-    kwargs = {}
-
-    expected_output = {
-        "programPrerequisites": []
-    }
-
-    output = add_prerequisites_data({}, kwargs)
-
-    pprint_diff(expected_output, output)
-
-    json_expected_output = json.dumps(expected_output, sort_keys=True)
-    json_output = json.dumps(output, sort_keys=True)
-
-    expect(json_output).to(equal(json_expected_output))
-
-
 def test_add_offers_data(offers):
     offers_price = offers['priceSpecification']['price']
     expected_output = {
