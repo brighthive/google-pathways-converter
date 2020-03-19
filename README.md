@@ -30,7 +30,7 @@ from converter import educational_occupational_programs_converter, work_based_pr
 
 ### Using the converters
 
-`google-pathways-converter` includes converters for educational-occupational and work-based programs data. Each converter has slightly different requirements for keyword arguments. 
+`google-pathways-converter` includes converters for educational-occupational and work-based programs data. Each converter has slightly different requirements for keyword arguments (as specified by the Google Pathways docs). 
 
 **Educational Occupational**
 
@@ -46,6 +46,19 @@ from converter import educational_occupational_programs_converter, work_based_pr
 | provider_telephone    | String
 | time_to_complete      | String that represents a duration in ISO-8601 format
 
+| Recommended fields                 | Type   
+| ---------------------------------- | -------------
+| identifier_cip                     | String
+| identifier_program_id              | String
+| application_start_date             | String
+| program_prerequisites              | A dict with any number of keywords, e.g., credential_category, eligible_groups, max_income_eligibility, other_program_prerequisites, etc.
+| start_date                         | String that represents a date in ISO-8601 format
+| end_date                           | String that represents a date in ISO-8601 format
+| occupational_credential_awarded    | String
+| maximum_enrollment                 | String
+| offers_price                       | Integer
+| time_of_day                        | String 
+
 **Work Based**
 
 | Required field        | Type   
@@ -55,21 +68,146 @@ from converter import educational_occupational_programs_converter, work_based_pr
 | provider_address      | A list of dicts. Each dict should have at least one of the following keys: street_address, address_locality, address_region, postal_code. 
 | program_description   | String
 
-## TESTING
+| Recommended fields                 | Type   
+| ---------------------------------- | -------------
+| program_description                | String
+| provider_name                      | String
+| provider_url                       | String
+| provider_telephone                 | String
+| identifier_program_id              | String
+| program_prerequisites              | A dict with any number of keywords, e.g., credential_category, eligible_groups, max_income_eligibility, other_program_prerequisites, etc.
+| start_date                         | String that represents a date in ISO-8601 format
+| end_date                           | String that represents a date in ISO-8601 format
+| occupational_credential_awarded    | String
+| maximum_enrollment                 | String
+| offers_price                       | Integer
+| time_of_day                        | String 
+
+**Example**
+Below gives an example of the `educational_occupational_programs_converter`. Note: you can pass in a dict (recommended), or you may pass in the kwargs directly. If you use a dict, then remember to unpack it.
+
+```
+from converter import educational_occupational_programs_converter
+
+programs_input = {
+    'application_deadline': '2020-04-01', 
+    'program_name': 'Goodwill Program', 
+    'offers_price': 2000, 
+    'program_url': 'goodwill.org', 
+    'provider_name': 'Goodwill of Springfield', 
+    'provider_url': 'goodwill.org', 
+    'provider_telephone': '333-343-4444', 
+    'provider_address': [
+        {
+            'street_address': '1 Grickle Grass Lane', 
+            'address_locality': 'Springfield', 
+            'address_region': 'MA', 
+            'postal_code': '88881'
+        }
+    ], 
+    'time_to_complete': 'P6M', 
+    'identifier_cip': '51.3333', 
+    'identifier_program_id': '5688', 
+    'application_start_date': '2020-01-01', 
+    'program_prerequisites': {
+        'credential_category': 'HighSchool', 
+        'eligible_groups': 'Youth', 
+        'max_income_eligibility': '20000', 
+        'other_program_prerequisites': 'other'
+    }, 
+    'end_date': '2020-12-01', 
+    'occupational_credential_awarded': 'Food Handlers Certification', 
+    'maximum_enrollment': '50', 
+    'start_date': '2020-04-01', 
+    'time_of_day': 'Evening'
+}
+
+output = educational_occupational_programs_converter(**programs_input)
+json.dumps(output, sort_keys=True)
+```
+
+```
+>>> {
+    "@context": "http://schema.org/", 
+    "@type": "EducationalOccupationalProgram", 
+    "applicationDeadline": "2020-04-01", 
+    "applicationStartDate": "2020-01-01", 
+    "endDate": "2020-12-01", 
+    "identifier": [
+        {
+            "@type": "PropertyValue", 
+            "propertyID": "CIP2010", 
+            "value": "51.3333"
+        }, 
+        {
+            "@type": "PropertyValue", 
+            "propertyID": "ProgramID", 
+            "value": "5688"
+        }
+    ], 
+    "maximumEnrollment": "50", 
+    "name": "Goodwill Program", 
+    "occupationalCredentialAwarded": "Food Handlers Certification", 
+    "offers": {
+        "@type": "Offer", 
+        "category": "Total Cost", 
+        "priceSpecification": {
+            "@type": "PriceSpecification", 
+            "price": 2000, 
+            "priceCurrency": "USD"
+        }
+    }, 
+    "programPrerequisites": [
+        {
+            "@type": "EducationalOccupationalCredential", 
+            "credentialCategory": "HighSchool"
+        }, 
+        {
+            "@type": "Text", 
+            "eligibleGroups": "Youth"
+        },
+        {
+            "@type": "Text", 
+            "maxIncomeEligibility": "20000"
+        }, 
+        {
+            "@type": "Text", 
+            "otherProgramPrerequisites": "other"
+        }
+    ], 
+    "provider": {
+        "@type": "EducationalOrganization", 
+        "address": [
+            {
+                "@type": "PostalAddress", 
+                "addressLocality": "Springfield", 
+                "addressRegion": "MA", 
+                "postalCode": "88881", 
+                "streetAddress": "1 Grickle Grass Lane"
+            }
+        ], 
+        "contactPoint": {
+            "@type": "ContactPoint", 
+            "telephone": "333-343-4444"
+        }, 
+        "name": "Goodwill of Springfield", 
+        "url": "goodwill.org"
+    }, 
+    "startDate": "2020-04-01", 
+    "timeOfDay": "Evening", "timeToComplete": "P6M", "url": "goodwill.org"
+}
+```
+
+## Testing
 `google-pathways-converter` comes with a comprehensive suite of unit tests. Execute all tests by running:
 
 ```
 pipenv run pytest
 ```
+## How to contribute
+We welcome code contributions, suggestions, and reports! Please report bugs, and make suggestions using [Github issues](https://github.com/brighthive/google-pathways-converter/issues). The BrightHive team will triage and prioritize your issue as soon as possible. 
 
-## OTHER INFORMATION
-Anything else the reader should know?
-
-## HOW TO CONTRIBUTE
-This section should provide instructions for making a contributions: 
-opening a feature branch, using a PR template, tagging the appropriate BrightHive people, etc.
-
-## TEAM
+## Team
 
 * Regina Compton (Software Engineer)
 * Logan Ripplinger (Software Engineer)

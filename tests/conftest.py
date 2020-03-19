@@ -13,10 +13,10 @@ def pprint_diff(expected_output, output):
 def program_provider_address_data():
     return [
         {
-            "street_address": "1940 East Silverlake Rd",
-            "address_locality": "Tucson",
-            "address_region": "AZ",
-            "postal_code": "85713"
+            "street_address": "1 Grickle Grass Lane",
+            "address_locality": "Springfield",
+            "address_region": "MA",
+            "postal_code": "88881"
         }
     ]
 
