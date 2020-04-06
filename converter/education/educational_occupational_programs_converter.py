@@ -4,8 +4,8 @@ from converter.helper import (add_header, add_offers_data,
                               add_salary_upon_completion_data,
                               add_training_salary_data, add_identifier_data)
 
-# A list of keywords that MUST be included in the source data, i.e., the data passed in a kwargs.
-required_keywords = [
+# A list of keywords required in particular for EducationalOccupationPrograms.
+additional_required_keywords = [
     "application_deadline",
     "offers_price", 
     "provider_name", 
@@ -34,6 +34,6 @@ def educational_occupational_programs_converter(**kwargs):
     educational_occupational_programs_converter = Converter(
         data_keywords_mapper,
         kwarg_to_schema_key_mapper,
-        required_keywords)
+        additional_required_keywords)
 
     return educational_occupational_programs_converter.trigger_conversion(kwargs)
