@@ -94,6 +94,7 @@ def educational_input_kwargs(program_provider_address_data, offers, training_sal
     '''
     return {
         "application_deadline": "2020-04-01",
+        "program_description": "A description of a Goodwill program",
         "program_name": "Goodwill Program",
         "offers_price": 2000,
         "program_url": "goodwill.org",
