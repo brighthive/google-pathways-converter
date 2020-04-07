@@ -40,9 +40,8 @@ You need to consider the following fields for the educational-occupational conve
 | provider_url          | String
 | provider_telephone    | String
 | time_to_complete      | String that represents a duration in ISO-8601 format
+| identifier_cip  AND/OR identifier_program_id                 | String
 | **RECOMMENDED FIELDS**                
-| identifier_cip                     | String
-| identifier_program_id              | String
 | application_start_date             | String
 | program_prerequisites              | A dict with any number of keywords, e.g., credential_category, eligible_groups, max_income_eligibility, other_program_prerequisites, etc.
 | start_date                         | String that represents a date in ISO-8601 format
