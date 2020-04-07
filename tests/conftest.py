@@ -103,8 +103,8 @@ def educational_input_kwargs(program_provider_address_data, offers, training_sal
         "provider_telephone": "333-343-4444",
         "provider_address": program_provider_address_data,
         "time_to_complete": "P6M",
-        "identifier_cip": "51.3902", # optional, but identifier blob is not
-        "identifier_program_id": "5688", # optional, but identifier blob is not
+        "identifier_cip": "51.3902", # Must include CIP or Program Identifier
+        "identifier_program_id": "5688",
         "application_start_date": "2020-01-01",
         "program_prerequisites": {
             "credential_category": "HighSchool",
@@ -114,7 +114,7 @@ def educational_input_kwargs(program_provider_address_data, offers, training_sal
         },
         "end_date": "2020-12-01",
         "occupational_credential_awarded": "Associate Degree",
-        "maximum_enrollment": "50", # It looks like Goodwill is not actually collecting this....
+        "maximum_enrollment": "50",
         "offers_price": offers['priceSpecification']['price'],
         "start_date": "2020-04-01",
         "time_of_day": "Evening",
