@@ -11,7 +11,7 @@ def test_check_for_required(input_kwargs,required_keywords, should_error):
     converter = Converter(
         data_keywords_mapper={"all": []},
         kwarg_to_schema_key_mapper={},
-        required_keywords=required_keywords
+        additional_required_keywords=required_keywords
     )
 
     if should_error:

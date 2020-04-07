@@ -16,12 +16,21 @@ class Converter():
         return self.output
 
     def _check_for_required(self, kwargs):
-        missing_kwargs = [kwarg for kwarg in self.required_keywords if kwarg not in kwargs.keys()]
+        '''
+        This function checks two things:
+        (1) the kwargs contain all required fields
+        (2) all required fields have a value – Google pathways does not consider an empty string to be valid input.
+        '''
+        missing_kwargs = []
+        for kwarg in self.required_keywords:
+            if kwarg not in kwargs.keys():
+                missing_kwargs.append(kwargs)
+            elif kwargs[kwarg] == '' or kwargs[kwarg] == None:
+                missing_kwargs.append(kwarg)
 
         if missing_kwargs:
             missing_kwargs_as_str = ",".join(missing_kwargs)
-            raise ValueError(f"Missing kwargs! One or more required properties needs to be included in the kwargs: {missing_kwargs_as_str}")
-    
+            raise ValueError(f"Missing kwargs! Please include values for the following fields: {missing_kwargs_as_str}")
 
     def _add_basic_keywords(self, kwargs):
         self.output = add_basic_keywords(
