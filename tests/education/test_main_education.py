@@ -92,6 +92,7 @@ def test_educational_occupational_converter_required(educational_input_kwargs, o
         "provider_telephone": educational_input_kwargs["provider_telephone"],
         "provider_address": educational_input_kwargs["provider_address"],
         "time_to_complete": educational_input_kwargs["time_to_complete"],
+        "identifier_program_id": educational_input_kwargs["identifier_program_id"]
     }
     
     expected_output = {
@@ -100,7 +101,13 @@ def test_educational_occupational_converter_required(educational_input_kwargs, o
         "applicationDeadline": educational_input_kwargs["application_deadline"],
         "name": educational_input_kwargs["program_name"],
         "description": educational_input_kwargs["program_description"],
-        "identifier": [], # Can we ask Goodwill to provide one or the other value? They cannot provide both. How do we validate for one or more fields? 
+        "identifier": [
+            {
+                "@type": "PropertyValue",
+                "propertyID": "ProgramID",
+                "value": educational_input_kwargs["identifier_program_id"]
+            }
+        ],
         "offers": offers,
         "url": educational_input_kwargs["program_url"],
         "provider": {
