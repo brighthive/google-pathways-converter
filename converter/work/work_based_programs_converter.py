@@ -4,6 +4,14 @@ from converter.helper import (add_header, add_offers_data,
                               add_salary_upon_completion_data,
                               add_training_salary_data)
 
+# A list of keywords required for WorkBasedPrograms.
+required_keywords = [
+    "provider_address",
+    "program_name",
+    "program_description",
+    "program_url"
+]
+
 kwarg_to_schema_key_mapper = {
     "program_description": "description",
     "program_name": "name",

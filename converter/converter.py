@@ -1,8 +1,11 @@
 from converter.helper import add_basic_keywords, add_data_keywords
 
 class Converter():
-    def __init__(self, data_keywords_mapper, kwarg_to_schema_key_mapper, additional_required_keywords=[]):
-        self.required_keywords = ["provider_address", "program_name", "program_description", "program_url"] + additional_required_keywords
+    def __init__(self, data_keywords_mapper, kwarg_to_schema_key_mapper, required_keywords=[]):
+        if type(required_keywords) is str:
+            required_keywords = required_keywords.replace(' ', '').split(',')
+
+        self.required_keywords = required_keywords
         self.data_keywords_mapper = data_keywords_mapper
         self.kwarg_to_schema_key_mapper = kwarg_to_schema_key_mapper
 
@@ -29,7 +32,7 @@ class Converter():
                 missing_kwargs.append(kwarg)
 
         if missing_kwargs:
-            missing_kwargs_as_str = ",".join(missing_kwargs)
+            missing_kwargs_as_str = ", ".join(missing_kwargs)
             raise ValueError(f"Missing kwargs! Please include values for the following fields: {missing_kwargs_as_str}")
 
     def _add_basic_keywords(self, kwargs):
