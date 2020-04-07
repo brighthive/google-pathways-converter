@@ -167,6 +167,9 @@ def add_salary_upon_completion_data(output, price: str):
 def add_identifier_data(output, cip=None, program_id=None):
     identifier_data = []
 
+    if not (cip and program_id):
+        raise ValueError('Missing kwargs! "identifier_cip" AND/OR "identifier_program_id" must have values.')
+
     if cip:
         identifier_data.append({
             "@type": "PropertyValue",

@@ -16,12 +16,12 @@ class Converter():
         return self.output
 
     def _check_for_required(self, kwargs):
-        # TODO flatten kwargs and check all keys // BUT WE DONT NEED TO SUPPORT THIS
         missing_kwargs = [kwarg for kwarg in self.required_keywords if kwarg not in kwargs.keys()]
 
         if missing_kwargs:
             missing_kwargs_as_str = ",".join(missing_kwargs)
-            raise RuntimeError(f"One or more required properties needs to be included in the kwargs: {missing_kwargs_as_str}")
+            raise ValueError(f"Missing kwargs! One or more required properties needs to be included in the kwargs: {missing_kwargs_as_str}")
+    
 
     def _add_basic_keywords(self, kwargs):
         self.output = add_basic_keywords(
