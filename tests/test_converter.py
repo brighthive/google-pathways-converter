@@ -25,7 +25,7 @@ def test_check_for_required(input_kwargs, required_keywords, should_error):
             output = converter.trigger_conversion(input_kwargs)
 
         assert "Missing kwargs! Please include values for the following fields" in str(exceptionMsg.value)
-        assert ",".join(required_keywords) in str(exceptionMsg.value)
+        assert ", ".join(required_keywords) in str(exceptionMsg.value)
     else:
         output = converter.trigger_conversion(input_kwargs)
         assert output == {}
