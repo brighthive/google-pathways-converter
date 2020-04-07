@@ -6,6 +6,7 @@ from converter.converter import Converter
     ({"a_recommended_keyword": "value"}, ["a_required_keyword"], True),
     ({"a_recommended_keyword": "value"}, ["a_required_keyword, another_required_keyword"], True),
     ({"a_required_keyword_with_no_value": ""}, ["a_required_keyword_with_no_value"], True),
+    ({"a_required_keyword_with_no_value": None}, ["a_required_keyword_with_no_value"], True),
     ({"a_required_keyword": "value"}, ["a_required_keyword"], False)
 ])
 def test_check_for_required(input_kwargs, required_keywords, should_error):
