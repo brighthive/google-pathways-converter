@@ -29,6 +29,7 @@ def test_work_based_programs_converter_all(work_based_input_kwargs, offers, trai
             "url": work_based_input_kwargs['provider_url'],
             "contactPoint": {
                 "@type": "ContactPoint",
+                "contactType": "Admissions",
                 "telephone": work_based_input_kwargs['provider_telephone']
             }
         },
@@ -99,6 +100,7 @@ def test_work_based_programs_converter_required(work_based_input_kwargs):
             "url": work_based_input_kwargs['provider_url'],
             "contactPoint": {
                 "@type": "ContactPoint",
+                "contactType": "Admissions",
                 "telephone": work_based_input_kwargs['provider_telephone']
             }
         }

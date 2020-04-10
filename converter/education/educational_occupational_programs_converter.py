@@ -4,8 +4,12 @@ from converter.helper import (add_header, add_offers_data,
                               add_salary_upon_completion_data,
                               add_training_salary_data, add_identifier_data)
 
-# A list of keywords that MUST be included in the source data, i.e., the data passed in a kwargs.
+# A list of keywords required for EducationalOccupationPrograms.
 required_keywords = [
+    "provider_address",
+    "program_name",
+    "program_description",
+    "program_url",
     "application_deadline",
     "offers_price", 
     "provider_name", 

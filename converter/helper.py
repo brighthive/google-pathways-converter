@@ -69,6 +69,7 @@ def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
     if 'provider_telephone' in kwargs:
         json_ld['provider']['contactPoint'] = {
             "@type": "ContactPoint",
+            "contactType": "Admissions",
             "telephone": kwargs['provider_telephone']
         }
 
@@ -166,6 +167,9 @@ def add_salary_upon_completion_data(output, price: str):
 
 def add_identifier_data(output, cip=None, program_id=None):
     identifier_data = []
+
+    if not cip and not program_id:
+        raise ValueError('Missing kwargs! "identifier_cip" AND/OR "identifier_program_id" must have values.')
 
     if cip:
         identifier_data.append({

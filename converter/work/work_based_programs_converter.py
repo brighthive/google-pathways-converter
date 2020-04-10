@@ -4,6 +4,14 @@ from converter.helper import (add_header, add_offers_data,
                               add_salary_upon_completion_data,
                               add_training_salary_data)
 
+# A list of keywords required for WorkBasedPrograms.
+required_keywords = [
+    "provider_address",
+    "program_name",
+    "program_description",
+    "program_url"
+]
+
 kwarg_to_schema_key_mapper = {
     "program_description": "description",
     "program_name": "name",
@@ -21,15 +29,9 @@ data_keywords_mapper = {
     ]
 }
 
-# A list of keywords that MUST be included in the source data, i.e., the data passed in a kwargs.
-required_keywords = [
-    "program_description"
-]
-
 def work_based_programs_converter(**kwargs):
     work_based_programs_converter = Converter(
         data_keywords_mapper,
-        kwarg_to_schema_key_mapper,
-        required_keywords)
+        kwarg_to_schema_key_mapper)
 
     return work_based_programs_converter.trigger_conversion(kwargs)
