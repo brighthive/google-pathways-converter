@@ -67,6 +67,7 @@ def work_based_input_kwargs(program_provider_address_data, offers, training_sala
         "provider_name": "Goodwill of Tucson",
         "provider_url": "goodwill.org",
         "provider_telephone": "333-343-4444",
+        "provider_telephone_contact_type": "Goodwill Office",
         "provider_address": program_provider_address_data,
         "program_prerequisites": {
             "credential_category": "HighSchool",
@@ -101,6 +102,7 @@ def educational_input_kwargs(program_provider_address_data, offers, training_sal
         "provider_name": "Goodwill of Tucson",
         "provider_url": "goodwill.org",
         "provider_telephone": "333-343-4444",
+        "provider_telephone_contact_type": "Goodwill Office",
         "provider_address": program_provider_address_data,
         "time_to_complete": "P6M",
         "identifier_cip": "51.3902", # Must include CIP or Program Identifier

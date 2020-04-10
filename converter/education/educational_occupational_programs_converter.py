@@ -15,7 +15,7 @@ required_keywords = [
     "provider_name", 
     "provider_url", 
     "provider_telephone", 
-    "provider_contact_type",
+    "provider_telephone_contact_type",
     "time_to_complete", 
 ]
 

@@ -44,6 +44,7 @@ def test_educational_occupational_converter_all(educational_input_kwargs, offers
             "url": educational_input_kwargs["provider_url"],
             "contactPoint": {
                 "@type": "ContactPoint",
+                "contactType": educational_input_kwargs["provider_telephone_contact_type"],
                 "telephone": educational_input_kwargs["provider_telephone"]
             }
         },
@@ -90,6 +91,7 @@ def test_educational_occupational_converter_required(educational_input_kwargs, o
         "provider_name": educational_input_kwargs["provider_name"],
         "provider_url": educational_input_kwargs["provider_url"],
         "provider_telephone": educational_input_kwargs["provider_telephone"],
+        "provider_telephone_contact_type": educational_input_kwargs["provider_telephone_contact_type"],
         "provider_address": educational_input_kwargs["provider_address"],
         "time_to_complete": educational_input_kwargs["time_to_complete"],
         "identifier_program_id": educational_input_kwargs["identifier_program_id"]
@@ -125,6 +127,7 @@ def test_educational_occupational_converter_required(educational_input_kwargs, o
             "url": educational_input_kwargs["provider_url"],
             "contactPoint": {
                 "@type": "ContactPoint",
+                "contactType": educational_input_kwargs["provider_telephone_contact_type"],
                 "telephone": educational_input_kwargs["provider_telephone"]
             }
         },

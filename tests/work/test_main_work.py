@@ -29,6 +29,7 @@ def test_work_based_programs_converter_all(work_based_input_kwargs, offers, trai
             "url": work_based_input_kwargs['provider_url'],
             "contactPoint": {
                 "@type": "ContactPoint",
+                "contactType": work_based_input_kwargs['provider_telephone_contact_type'],
                 "telephone": work_based_input_kwargs['provider_telephone']
             }
         },
@@ -74,6 +75,7 @@ def test_work_based_programs_converter_required(work_based_input_kwargs):
         "provider_name": work_based_input_kwargs['provider_name'],
         "provider_url": work_based_input_kwargs['provider_url'],
         "provider_telephone": work_based_input_kwargs['provider_telephone'],
+        "provider_telephone_contact_type": work_based_input_kwargs['provider_telephone_contact_type'],
         "provider_address": work_based_input_kwargs['provider_address']
     }
     output = work_based_programs_converter(**required_kwargs)
@@ -99,6 +101,7 @@ def test_work_based_programs_converter_required(work_based_input_kwargs):
             "url": work_based_input_kwargs['provider_url'],
             "contactPoint": {
                 "@type": "ContactPoint",
+                "contactType": work_based_input_kwargs['provider_telephone_contact_type'],
                 "telephone": work_based_input_kwargs['provider_telephone']
             }
         }

@@ -40,10 +40,10 @@ def test_add_basic_keywords(work_based_input_kwargs):
 
 def test_add_data_keywords(work_based_input_kwargs, training_salary, salary_upon_completion):
     data_keywords_mapper = {
-        "program_prerequisites": lambda output, kwargs: add_prerequisites_data(output, kwargs['program_prerequisites']),
-        "offers_price": lambda output, kwargs: add_offers_data(output, kwargs['offers_price']),
-        "training_salary": lambda output, kwargs: add_training_salary_data(output, kwargs['training_salary']),
-        "salary_upon_completion": lambda output, kwargs: add_salary_upon_completion_data(output, kwargs['salary_upon_completion']),
+        "program_prerequisites": lambda output, kwargs: add_prerequisites_data(output, kwargs["program_prerequisites"]),
+        "offers_price": lambda output, kwargs: add_offers_data(output, kwargs["offers_price"]),
+        "training_salary": lambda output, kwargs: add_training_salary_data(output, kwargs["training_salary"]),
+        "salary_upon_completion": lambda output, kwargs: add_salary_upon_completion_data(output, kwargs["salary_upon_completion"]),
         "all": [
             lambda output, kwargs: add_header(output, "WorkBasedProgram"),
             lambda output, kwargs: add_provider_data(output, kwargs)
@@ -95,6 +95,7 @@ def test_add_data_keywords(work_based_input_kwargs, training_salary, salary_upon
             "url": work_based_input_kwargs['provider_url'],
             "contactPoint": {
                 "@type": "ContactPoint",
+                "contactType": work_based_input_kwargs["provider_telephone_contact_type"],
                 "telephone": work_based_input_kwargs['provider_telephone']
             }
         },
