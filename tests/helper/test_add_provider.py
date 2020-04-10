@@ -10,7 +10,6 @@ def test_add_provider_data_all_fields(work_based_input_kwargs, program_provider_
         "provider_name": work_based_input_kwargs["provider_name"],
         "provider_url": work_based_input_kwargs["provider_url"],
         "provider_telephone": work_based_input_kwargs["provider_telephone"],
-        "provider_telephone_contact_type": work_based_input_kwargs["provider_telephone_contact_type"],
         "provider_address": program_provider_address_data
     }
 
@@ -30,7 +29,7 @@ def test_add_provider_data_all_fields(work_based_input_kwargs, program_provider_
             "url": work_based_input_kwargs["provider_url"],
             "contactPoint": {
                 "@type": "ContactPoint",
-                "contactType": work_based_input_kwargs["provider_telephone_contact_type"],
+                "contactType": "Admissions",
                 "telephone": work_based_input_kwargs["provider_telephone"]
             }
         },

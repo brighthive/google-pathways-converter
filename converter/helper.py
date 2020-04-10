@@ -66,10 +66,10 @@ def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
     if 'provider_url' in kwargs:
         json_ld['provider']["url"] = kwargs['provider_url']
 
-    if 'provider_telephone' in kwargs and 'provider_telephone_contact_type' in kwargs:
+    if 'provider_telephone' in kwargs:
         json_ld['provider']['contactPoint'] = {
             "@type": "ContactPoint",
-            "contactType": kwargs['provider_telephone_contact_type'],
+            "contactType": "Admissions",
             "telephone": kwargs['provider_telephone']
         }
 

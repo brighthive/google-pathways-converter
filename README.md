@@ -39,7 +39,6 @@ You need to consider the following fields for the educational-occupational conve
 | provider_name         | String
 | provider_url          | String
 | provider_telephone    | String
-| provider_telephone_contact_type    | String that describes the type of contact, e.g., "Admissions" or "Main Office" 
 | time_to_complete                   | String that represents a duration in ISO-8601 format
 | identifier_cip  AND/OR identifier_program_id | String
 | **RECOMMENDED FIELDS**                
@@ -67,7 +66,6 @@ You need to consider the following fields for the work-based converter: `work_ba
 | provider_name                      | String
 | provider_url                       | String
 | provider_telephone                 | String
-| provider_telephone_contact_type    | String that describes the type of contact, e.g., "Admissions" or "Main Office"
 | identifier_program_id              | String
 | program_prerequisites              | A dict with any number of keywords, e.g., credential_category, eligible_groups, max_income_eligibility, other_program_prerequisites, etc.
 | start_date                         | String that represents a date in ISO-8601 format

@@ -95,7 +95,7 @@ def test_add_data_keywords(work_based_input_kwargs, training_salary, salary_upon
             "url": work_based_input_kwargs['provider_url'],
             "contactPoint": {
                 "@type": "ContactPoint",
-                "contactType": work_based_input_kwargs["provider_telephone_contact_type"],
+                "contactType": "Admissions",
                 "telephone": work_based_input_kwargs['provider_telephone']
             }
         },
