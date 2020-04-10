@@ -69,6 +69,7 @@ def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
     if 'provider_telephone' in kwargs:
         json_ld['provider']['contactPoint'] = {
             "@type": "ContactPoint",
+            "contactType": kwargs['provider_telephone_contact_type'],
             "telephone": kwargs['provider_telephone']
         }
 
