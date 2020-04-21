@@ -54,24 +54,11 @@ def test_educational_occupational_converter_all(educational_input_kwargs, offers
         "startDate": educational_input_kwargs["start_date"],
         "occupationalCredentialAwarded": educational_input_kwargs["occupational_credential_awarded"],
         "maximumEnrollment": educational_input_kwargs["maximum_enrollment"],
-        "programPrerequisites": [
-            {
-                "@type": "EducationalOccupationalCredential", 
-                "credentialCategory": educational_input_kwargs["program_prerequisites"]["credential_category"]
-            },
-            {
-                "@type": "Text",
-                "eligibleGroups": educational_input_kwargs["program_prerequisites"]["eligible_groups"]
-            },
-            {
-                "@type": "Text",
-                "maxIncomeEligibility": educational_input_kwargs["program_prerequisites"]["max_income_eligibility"]
-            },
-            {
-                "@type": "Text",
-                "otherProgramPrerequisites": educational_input_kwargs["program_prerequisites"]["other_program_prerequisites"]
-            }
-        ],
+        "programPrerequisites": {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": educational_input_kwargs["program_prerequisites"]["credential_category"],
+            "competencyRequired": educational_input_kwargs["program_prerequisites"]["competency_required"]
+        },
         "timeOfDay": educational_input_kwargs["time_of_day"]
     }
 

@@ -37,24 +37,11 @@ def test_work_based_programs_converter_all(work_based_input_kwargs, offers, trai
         "endDate": work_based_input_kwargs['end_date'],
         "startDate": work_based_input_kwargs['start_date'],
         "maximumEnrollment": work_based_input_kwargs["maximum_enrollment"],
-        "programPrerequisites": [
-            {
-                "@type": "EducationalOccupationalCredential", 
-                "credentialCategory": work_based_input_kwargs["program_prerequisites"]["credential_category"]
-            },
-            {
-                "@type": "Text",
-                "eligibleGroups": work_based_input_kwargs["program_prerequisites"]["eligible_groups"]
-            },
-            {
-                "@type": "Text",
-                "maxIncomeEligibility": work_based_input_kwargs["program_prerequisites"]["max_income_eligibility"]
-            },
-            {
-                "@type": "Text",
-                "otherProgramPrerequisites": work_based_input_kwargs["program_prerequisites"]["other_program_prerequisites"]
-            }
-        ],
+        "programPrerequisites": {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": work_based_input_kwargs["program_prerequisites"]["credential_category"],
+            "competencyRequired": work_based_input_kwargs["program_prerequisites"]["competency_required"]
+        },
         "timeOfDay": work_based_input_kwargs["time_of_day"],
         "trainingSalary": training_salary,
         "salaryUponCompletion": salary_upon_completion,

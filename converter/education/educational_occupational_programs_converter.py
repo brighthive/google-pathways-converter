@@ -25,7 +25,7 @@ kwarg_to_schema_key_mapper = {
 }
 
 data_keywords_mapper = {
-    "program_prerequisites": lambda output, kwargs: add_prerequisites_data(output, kwargs['program_prerequisites']),
+    "program_prerequisites": lambda output, kwargs: add_prerequisites_data(output, kwargs.get('program_prerequisites')),
     "offers_price": lambda output, kwargs: add_offers_data(output, kwargs['offers_price']),
     "all": [
         lambda output, kwargs: add_header(output, "EducationalOccupationalProgram"),

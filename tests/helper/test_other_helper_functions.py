@@ -62,24 +62,11 @@ def test_add_data_keywords(work_based_input_kwargs, training_salary, salary_upon
                 "priceCurrency": "USD"
             }
         },
-        "programPrerequisites": [
-            {
-                "@type": "EducationalOccupationalCredential",
-                "credentialCategory": work_based_input_kwargs["program_prerequisites"]["credential_category"]
-            },
-            {
-                "@type": "Text",
-                "eligibleGroups": work_based_input_kwargs["program_prerequisites"]["eligible_groups"]
-            },
-            {
-                "@type": "Text",
-                "maxIncomeEligibility": work_based_input_kwargs["program_prerequisites"]["max_income_eligibility"]
-            },
-            {
-                "@type": "Text",
-                "otherProgramPrerequisites": work_based_input_kwargs["program_prerequisites"]["other_program_prerequisites"]
-            }
-        ],
+        "programPrerequisites": {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": work_based_input_kwargs["program_prerequisites"]["credential_category"],
+            "competencyRequired": work_based_input_kwargs["program_prerequisites"]["competency_required"]
+        },
         "provider": {
             "@type": "EducationalOrganization",
             "name": work_based_input_kwargs['provider_name'],
