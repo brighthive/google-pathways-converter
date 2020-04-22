@@ -10,6 +10,7 @@ pycodestyle = "*"
 autopep8 = "*"
 flake8 = "*"
 deepdiff = "*"
+pre-commit = "*"
 
 [packages]
 stringcase = "*"
