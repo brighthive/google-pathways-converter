@@ -98,28 +98,30 @@ def add_address_data(json_ld: dict, address: dict) -> dict:
     return json_ld
 
 
-def add_prerequisites_data(json_ld: dict, prerequisites: list) -> dict:
-    json_ld['programPrerequisites'] = []
-
-    for prereq_key, prereq_value in prerequisites.items():
-        json_ld = add_prerequisite(json_ld, prereq_key, prereq_value)
-
-    return json_ld
-
-
-def add_prerequisite(json_ld: dict, prereq_key: str, prereq_value: str) -> dict:
-    prereq_type = "Text"
-    if "credential_category" == prereq_key:
-        prereq_type = "EducationalOccupationalCredential"
-
-    camelcase_prereq = stringcase.camelcase(prereq_key)
-
-    prereq_node = {
-        "@type": prereq_type,
-        camelcase_prereq: prereq_value
+def add_prerequisites_data(json_ld: dict, prerequisites: dict) -> dict:
+    '''
+    `programPrerequisites` accepts an EducationalOccupationalCredential object as its value.
+    Currently, the BrightHive converter can handle two properties for the EducationalOccupationalCredential object:
+        - credentialCategory: the level of education required, e.g., HighSchool
+        - competencyRequired: knowledge, skill, ability, or personal attribute that must be demonstrated by a person or other entity.
+    '''
+    prereq_dict = {
+        "@type": "EducationalOccupationalCredential"
     }
+    try:
+        credential_category = prerequisites["credential_category"]
+        prereq_dict["credentialCategory"] = credential_category 
+    except (KeyError, TypeError):
+        pass
 
-    json_ld['programPrerequisites'].append(prereq_node)
+    try: 
+        competency_required = prerequisites["competency_required"]
+        prereq_dict["competencyRequired"] = competency_required
+    except (KeyError, TypeError):
+        pass
+    
+    if len(prereq_dict) > 1:
+        json_ld['programPrerequisites'] = prereq_dict
 
     return json_ld
 

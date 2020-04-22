@@ -43,13 +43,13 @@ You need to consider the following fields for the educational-occupational conve
 | identifier_cip  AND/OR identifier_program_id | String
 | **RECOMMENDED FIELDS**                
 | application_start_date             | String
-| program_prerequisites              | A dict with any number of keywords, e.g., credential_category, eligible_groups, max_income_eligibility, other_program_prerequisites, etc.
 | start_date                         | String that represents a date in ISO-8601 format
 | end_date                           | String that represents a date in ISO-8601 format
 | occupational_credential_awarded    | String
 | maximum_enrollment                 | String
 | offers_price                       | Integer
 | time_of_day                        | String 
+| program_prerequisites              | A dict with up to two specified keywords: "competency_required" (knowledge, skill, ability or personal attribute that a program participant must be able to demonstrate) and/or "credential_category" (a type of credential that a program participant must have)
 
 ### Converter kwargs: Work Based Programs
 You need to consider the following fields for the work-based converter: `work_based_programs_converter`.
@@ -67,13 +67,13 @@ You need to consider the following fields for the work-based converter: `work_ba
 | provider_url                       | String
 | provider_telephone                 | String
 | identifier_program_id              | String
-| program_prerequisites              | A dict with any number of keywords, e.g., credential_category, eligible_groups, max_income_eligibility, other_program_prerequisites, etc.
 | start_date                         | String that represents a date in ISO-8601 format
 | end_date                           | String that represents a date in ISO-8601 format
 | occupational_credential_awarded    | String
 | maximum_enrollment                 | String
 | offers_price                       | Integer
 | time_of_day                        | String 
+| program_prerequisites              | A dict with up to two specified keywords: "competency_required" (knowledge, skill, ability or personal attribute that a program participant must be able to demonstrate) and/or "credential_category" (a type of credential that a program participant must have)
 
 ### Example
 
@@ -103,11 +103,9 @@ programs_input = {
     'identifier_program_id': '5688', 
     'application_start_date': '2020-01-01', 
     'program_prerequisites': {
-        'credential_category': 'HighSchool', 
-        'eligible_groups': 'Youth', 
-        'max_income_eligibility': '20000', 
-        'other_program_prerequisites': 'other'
-    }, 
+        'credential_category': 'HighSchool',
+        'competency_required': 'Valid driver’s license'
+    },
     'end_date': '2020-12-01', 
     'occupational_credential_awarded': 'Food Handlers Certification', 
     'maximum_enrollment': '50', 
@@ -151,24 +149,11 @@ json.dumps(output, sort_keys=True)
             "priceCurrency": "USD"
         }
     }, 
-    "programPrerequisites": [
-        {
-            "@type": "EducationalOccupationalCredential", 
-            "credentialCategory": "HighSchool"
-        }, 
-        {
-            "@type": "Text", 
-            "eligibleGroups": "Youth"
-        },
-        {
-            "@type": "Text", 
-            "maxIncomeEligibility": "20000"
-        }, 
-        {
-            "@type": "Text", 
-            "otherProgramPrerequisites": "other"
-        }
-    ], 
+    "programPrerequisites": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "HighSchool",
+        "competencyRequired": "Valid driver’s license"
+    },
     "provider": {
         "@type": "EducationalOrganization", 
         "address": [

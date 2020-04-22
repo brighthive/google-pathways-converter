@@ -70,9 +70,7 @@ def work_based_input_kwargs(program_provider_address_data, offers, training_sala
         "provider_address": program_provider_address_data,
         "program_prerequisites": {
             "credential_category": "HighSchool",
-            "eligible_groups": "Youth",
-            "max_income_eligibility": "20000",
-            "other_program_prerequisites": "other"
+            "competency_required": "Valid driver’s license"
         },
         "end_date": "2020-12-01",
         "start_date": "2020-04-01",
@@ -108,9 +106,7 @@ def educational_input_kwargs(program_provider_address_data, offers, training_sal
         "application_start_date": "2020-01-01",
         "program_prerequisites": {
             "credential_category": "HighSchool",
-            "eligible_groups": "Youth",
-            "max_income_eligibility": "20000",
-            "other_program_prerequisites": "other"
+            "competency_required": "Valid driver’s license"
         },
         "end_date": "2020-12-01",
         "occupational_credential_awarded": "Associate Degree",
