@@ -90,7 +90,8 @@ def add_address_data(json_ld: dict, address: dict) -> dict:
         "streetAddress": address.get("street_address", ""),
         "addressLocality": address.get("address_locality", ""),
         "addressRegion": address.get("address_region", ""),
-        "postalCode": address.get("postal_code", "")
+        "postalCode": address.get("postal_code", ""),
+        "addressCountry": address.get("address_country", "")
     }
 
     json_ld['provider']['address'].append(address_node)

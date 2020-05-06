@@ -76,6 +76,7 @@ def test_add_data_keywords(work_based_input_kwargs, training_salary, salary_upon
                     "streetAddress": work_based_input_kwargs['provider_address'][0]['street_address'],
                     "addressLocality": work_based_input_kwargs['provider_address'][0]['address_locality'],
                     "addressRegion": work_based_input_kwargs['provider_address'][0]['address_region'],
+                    "addressCountry": work_based_input_kwargs['provider_address'][0]['address_country'],
                     "postalCode": work_based_input_kwargs['provider_address'][0]['postal_code']
                 }
             ],

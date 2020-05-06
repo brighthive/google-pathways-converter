@@ -38,6 +38,7 @@ def test_educational_occupational_converter_all(educational_input_kwargs, offers
                     "streetAddress": educational_input_kwargs["provider_address"][0]["street_address"],
                     "addressLocality": educational_input_kwargs["provider_address"][0]["address_locality"],
                     "addressRegion": educational_input_kwargs["provider_address"][0]["address_region"],
+                    "addressCountry": educational_input_kwargs["provider_address"][0]["address_country"],
                     "postalCode": educational_input_kwargs["provider_address"][0]["postal_code"]
                 }
             ],
@@ -107,6 +108,7 @@ def test_educational_occupational_converter_required(educational_input_kwargs, o
                     "streetAddress": educational_input_kwargs["provider_address"][0]["street_address"],
                     "addressLocality": educational_input_kwargs["provider_address"][0]["address_locality"],
                     "addressRegion": educational_input_kwargs["provider_address"][0]["address_region"],
+                    "addressCountry": educational_input_kwargs["provider_address"][0]["address_country"],
                     "postalCode": educational_input_kwargs["provider_address"][0]["postal_code"]
                 }
             ],

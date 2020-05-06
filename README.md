@@ -33,7 +33,7 @@ You need to consider the following fields for the educational-occupational conve
 | **REQUIRED FIELDS**  
 | program_name          | String              
 | program_url           | String      
-| provider_address      | A list of dicts. Each dict should have at least one of the following keys: street_address, address_locality, address_region, postal_code.        
+| provider_address      | A list of dicts. Each dict should have the following keys: street_address, address_locality, address_region, postal_code, and address_country.
 | application_deadline  | String that represents a date value in ISO-8601 format
 | offers_price          | Integer
 | provider_name         | String
@@ -59,7 +59,7 @@ You need to consider the following fields for the work-based converter: `work_ba
 | **REQUIRED FIELDS**  
 | program_name          | String              
 | program_url           | String      
-| provider_address      | A list of dicts. Each dict should have at least one of the following keys: street_address, address_locality, address_region, postal_code. 
+| provider_address      | A list of dicts. Each dict should have the following keys: street_address, address_locality, address_region, postal_code, and address_country. 
 | program_description   | String
 | **RECOMMENDED FIELDS**   
 | program_description                | String
@@ -95,6 +95,7 @@ programs_input = {
             'street_address': '1 Grickle Grass Lane', 
             'address_locality': 'Springfield', 
             'address_region': 'MA', 
+            'address_country': 'US',
             'postal_code': '88881'
         }
     ], 
@@ -160,7 +161,8 @@ json.dumps(output, sort_keys=True)
             {
                 "@type": "PostalAddress", 
                 "addressLocality": "Springfield", 
-                "addressRegion": "MA", 
+                "addressRegion": "MA",
+                "addressCountry": "US", 
                 "postalCode": "88881", 
                 "streetAddress": "1 Grickle Grass Lane"
             }

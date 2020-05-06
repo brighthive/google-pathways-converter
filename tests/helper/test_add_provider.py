@@ -23,6 +23,7 @@ def test_add_provider_data_all_fields(work_based_input_kwargs, program_provider_
                     "streetAddress": work_based_input_kwargs["provider_address"][0]["street_address"],
                     "addressLocality": work_based_input_kwargs["provider_address"][0]["address_locality"],
                     "addressRegion": work_based_input_kwargs["provider_address"][0]["address_region"],
+                    "addressCountry": work_based_input_kwargs["provider_address"][0]["address_country"],
                     "postalCode": work_based_input_kwargs["provider_address"][0]["postal_code"]
                 }
             ],
@@ -57,6 +58,7 @@ def test_add_provider_data_only_required_fields(work_based_input_kwargs, program
                     "streetAddress": work_based_input_kwargs["provider_address"][0]["street_address"],
                     "addressLocality": work_based_input_kwargs["provider_address"][0]["address_locality"],
                     "addressRegion": work_based_input_kwargs["provider_address"][0]["address_region"],
+                    "addressCountry": work_based_input_kwargs["provider_address"][0]["address_country"],
                     "postalCode": work_based_input_kwargs["provider_address"][0]["postal_code"]
                 }
             ],
@@ -84,6 +86,7 @@ def test_add_address_data(program_provider_address_data):
                     "streetAddress": program_provider_address_data[0]['street_address'],
                     "addressLocality": program_provider_address_data[0]['address_locality'],
                     "addressRegion": program_provider_address_data[0]['address_region'],
+                    "addressCountry": program_provider_address_data[0]['address_country'],
                     "postalCode": program_provider_address_data[0]['postal_code']
                 }
             ]
@@ -106,6 +109,7 @@ def test_add_address_data_empty_values():
                     "streetAddress": "",
                     "addressLocality": "",
                     "addressRegion": "",
+                    "addressCountry": "",
                     "postalCode": ""
                 }
             ]

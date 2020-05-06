@@ -23,6 +23,7 @@ def test_work_based_programs_converter_all(work_based_input_kwargs, offers, trai
                     "streetAddress": work_based_input_kwargs['provider_address'][0]['street_address'],
                     "addressLocality": work_based_input_kwargs['provider_address'][0]['address_locality'],
                     "addressRegion": work_based_input_kwargs['provider_address'][0]['address_region'],
+                    "addressCountry": work_based_input_kwargs['provider_address'][0]['address_country'],
                     "postalCode": work_based_input_kwargs['provider_address'][0]['postal_code']
                 }
             ],
@@ -81,6 +82,7 @@ def test_work_based_programs_converter_required(work_based_input_kwargs):
                     "streetAddress": work_based_input_kwargs['provider_address'][0]['street_address'],
                     "addressLocality": work_based_input_kwargs['provider_address'][0]['address_locality'],
                     "addressRegion": work_based_input_kwargs['provider_address'][0]['address_region'],
+                    "addressCountry": work_based_input_kwargs['provider_address'][0]['address_country'],
                     "postalCode": work_based_input_kwargs['provider_address'][0]['postal_code']
                 }
             ],
