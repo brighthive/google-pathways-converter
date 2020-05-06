@@ -16,6 +16,7 @@ def program_provider_address_data():
             "street_address": "1 Grickle Grass Lane",
             "address_locality": "Springfield",
             "address_region": "MA",
+            "address_country": "US",
             "postal_code": "88881"
         }
     ]
