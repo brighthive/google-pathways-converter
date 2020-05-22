@@ -111,6 +111,7 @@ def educational_input_kwargs(program_provider_address_data, offers, training_sal
         },
         "end_date": "2020-12-01",
         "occupational_credential_awarded": "Associate Degree",
+        "educational_program_mode": "online",
         "maximum_enrollment": "50",
         "offers_price": offers['priceSpecification']['price'],
         "start_date": "2020-04-01",
