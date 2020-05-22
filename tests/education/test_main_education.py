@@ -54,6 +54,7 @@ def test_educational_occupational_converter_all(educational_input_kwargs, offers
         "endDate": educational_input_kwargs["end_date"],
         "startDate": educational_input_kwargs["start_date"],
         "occupationalCredentialAwarded": educational_input_kwargs["occupational_credential_awarded"],
+        "educationalProgramMode": educational_input_kwargs["educational_program_mode"],
         "maximumEnrollment": educational_input_kwargs["maximum_enrollment"],
         "programPrerequisites": {
             "@type": "EducationalOccupationalCredential",

@@ -1,14 +1,14 @@
 import stringcase
 
 
-def add_header(json_ld: dict, type_str: str) -> dict:
-    json_ld["@context"] = "http://schema.org/"
-    json_ld["@type"] = type_str
+def add_header(pathways_program: dict, type_str: str) -> dict:
+    pathways_program["@context"] = "http://schema.org/"
+    pathways_program["@type"] = type_str
 
-    return json_ld
+    return pathways_program
 
 
-def add_basic_keywords(output, kwargs, kwarg_to_schema_key_mapper):
+def add_basic_keywords(pathways_program: dict, kwargs, kwarg_to_schema_key_mapper):
     # A list of non-nested schema.org properties
     basic_keywords = [
         "applicationDeadline",
@@ -34,40 +34,40 @@ def add_basic_keywords(output, kwargs, kwarg_to_schema_key_mapper):
         if camel_case_key not in basic_keywords:
             continue
 
-        output[camel_case_key] = value
+        pathways_program[camel_case_key] = value
 
-    return output
+    return pathways_program
 
 
-def add_data_keywords(output, kwargs, data_keywords_mapper):
+def add_data_keywords(pathways_program: dict, kwargs, data_keywords_mapper):
     for fn in data_keywords_mapper['all']:
-        output = fn(output, kwargs)
+        pathways_program = fn(pathways_program, kwargs)
 
     for key, fn in data_keywords_mapper.items():
         if key == "all":
             continue
 
         try:
-            output = fn(output, kwargs)
+            pathways_program = fn(pathways_program, kwargs)
         except KeyError:
             pass
 
-    return output
+    return pathways_program
 
 
-def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
-    json_ld['provider'] = {
+def add_provider_data(pathways_program: dict, kwargs: dict) -> dict:
+    pathways_program['provider'] = {
         "@type": "EducationalOrganization",
     }
 
     if 'provider_name' in kwargs:
-        json_ld['provider']["name"] = kwargs['provider_name']
+        pathways_program['provider']["name"] = kwargs['provider_name']
 
     if 'provider_url' in kwargs:
-        json_ld['provider']["url"] = kwargs['provider_url']
+        pathways_program['provider']["url"] = kwargs['provider_url']
 
     if 'provider_telephone' in kwargs:
-        json_ld['provider']['contactPoint'] = {
+        pathways_program['provider']['contactPoint'] = {
             "@type": "ContactPoint",
             "contactType": "Admissions",
             "telephone": kwargs['provider_telephone']
@@ -76,14 +76,14 @@ def add_provider_data(json_ld: dict, kwargs: dict) -> dict:
     # `provider_address` is a list that can contain one or more addresses.
     # `provider_address` is a required field, so we do not need to handle a KeyError.
     for address in kwargs['provider_address']:
-        json_ld = add_address_data(json_ld, address)
+        pathways_program = add_address_data(pathways_program, address)
 
-    return json_ld
+    return pathways_program
 
 
-def add_address_data(json_ld: dict, address: dict) -> dict:    
-    if 'address' not in json_ld['provider']:
-        json_ld['provider']['address'] = []
+def add_address_data(pathways_program: dict, address: dict) -> dict:    
+    if 'address' not in pathways_program['provider']:
+        pathways_program['provider']['address'] = []
 
     address_node = {
         "@type": "PostalAddress",
@@ -94,12 +94,12 @@ def add_address_data(json_ld: dict, address: dict) -> dict:
         "addressCountry": address.get("address_country", "")
     }
 
-    json_ld['provider']['address'].append(address_node)
+    pathways_program['provider']['address'].append(address_node)
 
-    return json_ld
+    return pathways_program
 
 
-def add_prerequisites_data(json_ld: dict, prerequisites: dict) -> dict:
+def add_prerequisites_data(pathways_program: dict, prerequisites: dict) -> dict:
     '''
     `programPrerequisites` accepts an EducationalOccupationalCredential object as its value.
     Currently, the BrightHive converter can handle two properties for the EducationalOccupationalCredential object:
@@ -122,12 +122,12 @@ def add_prerequisites_data(json_ld: dict, prerequisites: dict) -> dict:
         pass
     
     if len(prereq_dict) > 1:
-        json_ld['programPrerequisites'] = prereq_dict
+        pathways_program['programPrerequisites'] = prereq_dict
 
-    return json_ld
+    return pathways_program
 
 
-def add_offers_data(output, price: int):
+def add_offers_data(pathways_program: dict, price: int):
     offers_node = {
         "@type": "Offer",
         "category": "Total Cost",
@@ -138,12 +138,12 @@ def add_offers_data(output, price: int):
         }
     }
 
-    output['offers'] = offers_node
+    pathways_program['offers'] = offers_node
     
-    return output
+    return pathways_program
 
 
-def add_training_salary_data(output, price: str):
+def add_training_salary_data(pathways_program: dict, price: str):
     training_salary_node = {
         "@type": "MonetaryAmountDistribution",
         "currency": "USD",
@@ -151,12 +151,12 @@ def add_training_salary_data(output, price: str):
         "median": price
     }
 
-    output['trainingSalary'] = training_salary_node
+    pathways_program['trainingSalary'] = training_salary_node
 
-    return output
+    return pathways_program
 
 
-def add_salary_upon_completion_data(output, price: str):
+def add_salary_upon_completion_data(pathways_program: dict, price: str):
     training_salary_node = {
         "@type": "MonetaryAmountDistribution",
         "currency": "USD",
@@ -164,11 +164,11 @@ def add_salary_upon_completion_data(output, price: str):
         "median": price
     }
 
-    output['salaryUponCompletion'] = training_salary_node
+    pathways_program['salaryUponCompletion'] = training_salary_node
 
-    return output
+    return pathways_program
 
-def add_identifier_data(output, cip=None, program_id=None):
+def add_identifier_data(pathways_program: dict, cip=None, program_id=None):
     identifier_data = []
 
     if not cip and not program_id:
@@ -188,6 +188,17 @@ def add_identifier_data(output, cip=None, program_id=None):
             "value": program_id
         })
     
-    output['identifier'] = identifier_data
+    pathways_program['identifier'] = identifier_data
 
-    return output
+    return pathways_program
+
+def add_educational_program_mode(pathways_program: dict, program_mode=None):
+    if program_mode:
+        valid_modes = ["in-person", "online", "hybrid"]
+
+        if program_mode in valid_modes:
+            pathways_program["educationalProgramMode"] = program_mode
+        else:
+            raise ValueError('Invalid data! "educational_program_mode" must be one of the following: "in-person", "online", "hybrid".')
+        
+    return pathways_program

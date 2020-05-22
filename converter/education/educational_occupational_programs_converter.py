@@ -1,8 +1,9 @@
 from converter.converter import Converter
-from converter.helper import (add_header, add_offers_data,
+from converter.helper import (add_educational_program_mode, add_header,
+                              add_identifier_data, add_offers_data,
                               add_prerequisites_data, add_provider_data,
                               add_salary_upon_completion_data,
-                              add_training_salary_data, add_identifier_data)
+                              add_training_salary_data)
 
 # A list of keywords required for EducationalOccupationPrograms.
 required_keywords = [
@@ -27,6 +28,7 @@ kwarg_to_schema_key_mapper = {
 data_keywords_mapper = {
     "program_prerequisites": lambda output, kwargs: add_prerequisites_data(output, kwargs.get('program_prerequisites')),
     "offers_price": lambda output, kwargs: add_offers_data(output, kwargs['offers_price']),
+    "educational_program_mode": lambda output, kwargs: add_educational_program_mode(output, kwargs["educational_program_mode"]),
     "all": [
         lambda output, kwargs: add_header(output, "EducationalOccupationalProgram"),
         lambda output, kwargs: add_provider_data(output, kwargs),
