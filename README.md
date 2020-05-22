@@ -46,6 +46,7 @@ You need to consider the following fields for the educational-occupational conve
 | start_date                         | String that represents a date in ISO-8601 format
 | end_date                           | String that represents a date in ISO-8601 format
 | occupational_credential_awarded    | String
+| educational_program_mode           | String with one of three values: "in-person", "online", or "hybrid". Only programs that take place 100% online qualify as being in "online" mode.
 | maximum_enrollment                 | String
 | offers_price                       | Integer
 | time_of_day                        | String 
