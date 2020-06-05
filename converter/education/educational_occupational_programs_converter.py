@@ -3,7 +3,8 @@ from converter.helper import (add_educational_program_mode, add_header,
                               add_identifier_data, add_offers_data,
                               add_prerequisites_data, add_provider_data,
                               add_salary_upon_completion_data,
-                              add_training_salary_data, validate_occupational_category)
+                              add_training_salary_data,
+                              validate_occupational_category)
 
 # A list of keywords required for EducationalOccupationPrograms.
 required_keywords = [

@@ -2,7 +2,8 @@ from converter.converter import Converter
 from converter.helper import (add_header, add_offers_data,
                               add_prerequisites_data, add_provider_data,
                               add_salary_upon_completion_data,
-                              add_training_salary_data, validate_occupational_category)
+                              add_training_salary_data,
+                              validate_occupational_category)
 
 # A list of keywords required for WorkBasedPrograms.
 required_keywords = [
