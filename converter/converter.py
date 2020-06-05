@@ -28,7 +28,7 @@ class Converter():
         for kwarg in self.required_keywords:
             if kwarg not in kwargs.keys():
                 missing_kwargs.append(kwarg)
-            elif kwargs[kwarg] == '' or kwargs[kwarg] == None:
+            elif kwargs[kwarg] == '' or kwargs[kwarg] == None or kwargs[kwarg] == []:
                 missing_kwargs.append(kwarg)
 
         if missing_kwargs:

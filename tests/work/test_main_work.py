@@ -47,6 +47,7 @@ def test_work_based_programs_converter_all(work_based_input_kwargs, offers, trai
         "trainingSalary": training_salary,
         "salaryUponCompletion": salary_upon_completion,
         "occupationalCredentialAwarded": work_based_input_kwargs["occupational_credential_awarded"],
+        "occupationalCategory": ["15-1152", "15-2021", "15-2031"]
     }
 
     json_expected_output = json.dumps(expected_output, sort_keys=True)
@@ -63,7 +64,8 @@ def test_work_based_programs_converter_required(work_based_input_kwargs):
         "provider_name": work_based_input_kwargs['provider_name'],
         "provider_url": work_based_input_kwargs['provider_url'],
         "provider_telephone": work_based_input_kwargs['provider_telephone'],
-        "provider_address": work_based_input_kwargs['provider_address']
+        "provider_address": work_based_input_kwargs['provider_address'],
+        "occupational_category": ["15-1152", "15-2021", "15-2031"]
     }
     output = work_based_programs_converter(**required_kwargs)
 
@@ -92,7 +94,8 @@ def test_work_based_programs_converter_required(work_based_input_kwargs):
                 "contactType": "Admissions",
                 "telephone": work_based_input_kwargs['provider_telephone']
             }
-        }
+        },
+        "occupationalCategory": ["15-1152", "15-2021", "15-2031"]
     }
 
     json_expected_output = json.dumps(expected_output, sort_keys=True)

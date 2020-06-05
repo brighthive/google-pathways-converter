@@ -8,7 +8,8 @@ from converter.helper import (add_basic_keywords, add_data_keywords,
                               add_identifier_data, add_offers_data,
                               add_prerequisites_data, add_provider_data,
                               add_salary_upon_completion_data,
-                              add_training_salary_data)
+                              add_training_salary_data,
+                              validate_occupational_category)
 from tests.conftest import pprint_diff
 
 
@@ -162,3 +163,26 @@ def test_add_header(program_type):
     json_output = json.dumps(output, sort_keys=True)
 
     expect(json_output).to(equal(json_expected_output))
+
+def test_validate_occupational_category():
+    output = validate_occupational_category({}, ["15-1152", "15-2021", "15-2031"])
+
+    expected_output = {
+       "occupationalCategory": ["15-1152", "15-2021", "15-2031"]
+    }
+
+    expect(output).to(equal(expected_output))
+
+@pytest.mark.parametrize("occupational_categories", [
+    (["100-00000"]), # More than two digits before hyphen
+    (["ab-00000"]), # Non-decimal digits
+    (["10-abcd"]),
+    (["151152"]), # Missing hyphen
+    (["Construction Engineer"]) # Text without formatting
+])
+def test_validate_occupational_category_with_invalid_data(occupational_categories):
+    with pytest.raises(ValueError) as execinfo: 
+        validate_occupational_category({}, occupational_categories)
+
+    expected_error = 'Invalid data! The values in "occupational_category" must provide use the Standard Occupational Classification System from the US Bureau of Labor.'
+    expect(str(execinfo.value)).to(equal(expected_error))
