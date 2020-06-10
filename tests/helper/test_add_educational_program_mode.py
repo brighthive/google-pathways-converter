@@ -5,9 +5,9 @@ from converter.helper import add_educational_program_mode
 
 
 @pytest.mark.parametrize("program_mode", [
-    ("in-person"),
-    ("online"),
-    ("hybrid")
+    ("IN_PERSON"),
+    ("ONLINE"),
+    ("HYBRID")
 ])
 def test_add_educational_program_mode(program_mode):
     output = add_educational_program_mode({}, program_mode)
@@ -27,6 +27,7 @@ def test_add_education_program_mode_add_nothing():
 
 @pytest.mark.parametrize("program_mode", [
     ("in person"),
+    ("in-person"),
     ("On-line"),
     ("both")
 ])
@@ -34,5 +35,5 @@ def test_add_educational_program_mode_raise_error(program_mode):
     with pytest.raises(ValueError) as execinfo: 
         output = add_educational_program_mode({}, program_mode)
 
-    expected_error = 'Invalid data! "educational_program_mode" must be one of the following: "in-person", "online", "hybrid".'
+    expected_error = 'Invalid data! "educational_program_mode" must be one of the following: "IN_PERSON", "ONLINE", "HYBRID".'
     expect(str(execinfo.value)).to(equal(expected_error))

@@ -195,12 +195,12 @@ def add_identifier_data(pathways_program: dict, cip=None, program_id=None):
 
 def add_educational_program_mode(pathways_program: dict, program_mode=None):
     if program_mode:
-        valid_modes = ["in-person", "online", "hybrid"]
+        valid_modes = ["IN_PERSON", "ONLINE", "HYBRID"]
 
         if program_mode in valid_modes:
             pathways_program["educationalProgramMode"] = program_mode
         else:
-            raise ValueError('Invalid data! "educational_program_mode" must be one of the following: "in-person", "online", "hybrid".')
+            raise ValueError('Invalid data! "educational_program_mode" must be one of the following: "IN_PERSON", "ONLINE", "HYBRID".')
         
     return pathways_program
 
