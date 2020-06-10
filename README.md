@@ -47,7 +47,7 @@ You need to consider the following fields for the educational-occupational conve
 | start_date                         | String that represents a date in ISO-8601 format
 | end_date                           | String that represents a date in ISO-8601 format
 | occupational_credential_awarded    | String
-| educational_program_mode           | String with one of three values: "in-person", "online", or "hybrid". Only programs that take place 100% online qualify as being in "online" mode.
+| educational_program_mode           | String with one of three values: "IN_PERSON", "ONLINE", or "HYBRID". Only programs that take place 100% online qualify as being in "ONLINE" mode.
 | maximum_enrollment                 | String
 | offers_price                       | Integer
 | time_of_day                        | String 
@@ -114,7 +114,8 @@ programs_input = {
     'occupational_credential_awarded': 'Food Handlers Certification', 
     'maximum_enrollment': '50', 
     'start_date': '2020-04-01', 
-    'time_of_day': 'Evening'
+    'time_of_day': 'Evening',
+    'educational_program_mode': 'HYBRID'
 }
 
 output = educational_occupational_programs_converter(**programs_input)
@@ -178,7 +179,8 @@ json.dumps(output, sort_keys=True)
         "url": "goodwill.org"
     }, 
     "startDate": "2020-04-01", 
-    "timeOfDay": "Evening", "timeToComplete": "P6M", "url": "goodwill.org"
+    "timeOfDay": "Evening", "timeToComplete": "P6M", "url": "goodwill.org",
+    "educationalProgramMode": "HYBRID"
 }
 ```
 
