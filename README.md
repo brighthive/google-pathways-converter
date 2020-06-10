@@ -41,6 +41,7 @@ You need to consider the following fields for the educational-occupational conve
 | provider_telephone    | String
 | time_to_complete                   | String that represents a duration in ISO-8601 format
 | identifier_cip  AND/OR identifier_program_id | String
+| occupational_category | A list of strings. Each string must reference a [BLS SOC-6 code](https://www.bls.gov/soc/2010/home.htm), e.g., ["47-2111", "49-9021"].
 | **RECOMMENDED FIELDS**                
 | application_start_date             | String
 | start_date                         | String that represents a date in ISO-8601 format
@@ -62,6 +63,7 @@ You need to consider the following fields for the work-based converter: `work_ba
 | program_url           | String      
 | provider_address      | A list of dicts. Each dict should have the following keys: street_address, address_locality, address_region, postal_code, and address_country. 
 | program_description   | String
+| occupational_category | A list of strings. Each string must reference a [BLS SOC-6 code](https://www.bls.gov/soc/2010/home.htm), e.g., ["47-2111", "49-9021"].
 | **RECOMMENDED FIELDS**   
 | program_description                | String
 | provider_name                      | String

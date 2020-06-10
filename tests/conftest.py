@@ -81,7 +81,8 @@ def work_based_input_kwargs(program_provider_address_data, offers, training_sala
         "time_to_complete": "P6M",
         "offers_price": offers['priceSpecification']['price'],
         "training_salary": training_salary['median'],
-        "salary_upon_completion": salary_upon_completion['median']
+        "salary_upon_completion": salary_upon_completion['median'],
+        "occupational_category": ["15-1152", "15-2021", "15-2031"]
     }
 
 
@@ -116,4 +117,5 @@ def educational_input_kwargs(program_provider_address_data, offers, training_sal
         "offers_price": offers['priceSpecification']['price'],
         "start_date": "2020-04-01",
         "time_of_day": "Evening",
+        "occupational_category": ["15-1152", "15-2021", "15-2031"]
     }

@@ -1,4 +1,5 @@
 import stringcase
+import re
 
 
 def add_header(pathways_program: dict, type_str: str) -> dict:
@@ -202,3 +203,24 @@ def add_educational_program_mode(pathways_program: dict, program_mode=None):
             raise ValueError('Invalid data! "educational_program_mode" must be one of the following: "in-person", "online", "hybrid".')
         
     return pathways_program
+
+
+def validate_occupational_category(pathways_program: dict, occupational_categories):
+    '''
+    `occupationalCategory` (Pathways field) expects a list of SOC values, as defined by the US Bureau of Labor Statistics.
+    This function only validates the *format* of the occupational categories provided in the kwargs; it does NOT
+    validate against the actual SOC system of values.
+    '''
+    valid_occupational_categories = []
+    for soc_category in occupational_categories:
+        match = re.match(r"^\d{2}-\d+$", soc_category)
+        if match:
+            valid_occupational_categories.append(soc_category)
+        else:
+            raise ValueError('Invalid data! The values in "occupational_category" must provide use the Standard Occupational Classification System from the US Bureau of Labor.')
+    
+    pathways_program["occupationalCategory"] = valid_occupational_categories
+
+    return pathways_program
+
+

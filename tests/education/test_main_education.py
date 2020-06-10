@@ -61,7 +61,8 @@ def test_educational_occupational_converter_all(educational_input_kwargs, offers
             "credentialCategory": educational_input_kwargs["program_prerequisites"]["credential_category"],
             "competencyRequired": educational_input_kwargs["program_prerequisites"]["competency_required"]
         },
-        "timeOfDay": educational_input_kwargs["time_of_day"]
+        "timeOfDay": educational_input_kwargs["time_of_day"],
+        "occupationalCategory": ["15-1152", "15-2021", "15-2031"]
     }
 
     json_expected_output = json.dumps(expected_output, sort_keys=True)
@@ -82,7 +83,8 @@ def test_educational_occupational_converter_required(educational_input_kwargs, o
         "provider_telephone": educational_input_kwargs["provider_telephone"],
         "provider_address": educational_input_kwargs["provider_address"],
         "time_to_complete": educational_input_kwargs["time_to_complete"],
-        "identifier_program_id": educational_input_kwargs["identifier_program_id"]
+        "identifier_program_id": educational_input_kwargs["identifier_program_id"],
+        "occupational_category": ["15-1152", "15-2021", "15-2031"]
     }
     
     expected_output = {
@@ -120,7 +122,8 @@ def test_educational_occupational_converter_required(educational_input_kwargs, o
                 "telephone": educational_input_kwargs["provider_telephone"]
             }
         },
-        "timeToComplete": educational_input_kwargs["time_to_complete"]
+        "timeToComplete": educational_input_kwargs["time_to_complete"],
+        "occupationalCategory": ["15-1152", "15-2021", "15-2031"]
     }
 
     output = educational_occupational_programs_converter(**required_kwargs)
